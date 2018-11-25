@@ -10,10 +10,6 @@ const passport = require('passport');
 /* MODELS */
 const {userDataModel, userFavsModel} = require('./models');
 
-
-
-//const {router: authRoute, localStrategy, lwtStrategy} = require('./auth');
-
 mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
@@ -33,21 +29,22 @@ app.use(function (req, res, next) {
     next();
 });
 
-//passport.use(localStrategy);
-//passport.use(jwtStrategy);
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 
-/* ROUTES */
+/* ROUTERS */
+
+const {router: authRoute, localStrategy, lwtStrategy} = require('./auth');
 /*
-const userLogin = require('./someRoutePath');
-const userSetup = require('./someRoutePath');
-const userFavorites = require('./someRoutePath');
-const userDraw = require('./someRoutePath');
+const userRoute = require('./user/userRouter');
+const siteRoute = require('./site/siteRouter');
 */
 
 /* ENDPOINTS */
+
+app.use('/userAccess', authRoute);
 /*
-app.use('/userLogin', userLogin);
 app.use('/userSetup', userSetup);
 app.use('/userFavorites', userFavorites);
 app.use('/userDraw', userDraw);

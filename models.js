@@ -3,13 +3,8 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 
-//ROUTES TO BASE MODELS
-/*
-userLogin - auth model
-userSetup - user data model
-userFavorites - user favorites model
-userDraw - draws from favorites DB Collection
-*/
+
+/*USER DATA SCHEMA */
 
 const userDataSchema = mongoose.Schema({
     username: {type: String, required: true, unique: true},
@@ -17,10 +12,14 @@ const userDataSchema = mongoose.Schema({
     email: {type: String, required: true, unique: true} 
 })
 
+/*USER FAVORITES SCHEMA */
+
 const userFavsSchema = mongoose.Schema({
     userRef: {type: mongoose.Schema.Types.ObjectId, ref: 'userdata'},
     resturant: {type: String, require: true}
 })
+
+/*PRE-HOOKS AND VIRTUAL FOR USER FAVS TO REFERENCE AND POPULATE USER NAME FOR FAVORITES */
 
 userFavsSchema.pre('findOne', function(next) {
     this.populate('userRef');
@@ -36,6 +35,8 @@ userFavsSchema.virtual('_userRef').get(function() {
     return `${this.userdata.username}`.trim()
 })
 
+/* USER DATA CLEAN-UP METHOD */
+
 userDataSchema.methods.cleanUp = function() {
     return {
         id: this._id,
@@ -43,6 +44,8 @@ userDataSchema.methods.cleanUp = function() {
         email: this.email
     }
 }
+
+/* USER FAVORITES CLEAN-UP METHOD */
 
 userFavsSchema.methods.cleanUp = function() {
     return {
@@ -52,14 +55,27 @@ userFavsSchema.methods.cleanUp = function() {
     }
 }
 
-//ADD AUTH AND TOKEN METHODS
+/* SET USER TOKEN */
 
-//SET TOKEN
+userDataSchema.methods.setToken = function() {
+    return {
+        id: this._id
+    };
+};
 
-//VALPASS
+/* PASSWORD HASH */
 
-//HASHPASS
+userDataSchema.statics.hashPass = function(pass) {
+    return bcrypt.hash(pass, 10);
+};
 
+/* PASSWORD VALIDATE */
+
+userDataSchema.statics.valPass = function(pass) {
+    return bcrypt.compare(pass, this.password)
+};
+
+/* MODELS AND DB COLLECTIONS */
 
 const userDataModel = mongoose.model('userdata', userDataSchema);
 const userFavsModel = mongoose.model('favsdata', userFavsSchema);
