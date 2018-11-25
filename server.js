@@ -50,8 +50,10 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use(express.static('public'));
+
 //BASIC EP TO TEST SERVER START/STOP
-app.get('/', (req, res) => res.json({testing: '1-2-3'}))
+app.get('/test', (req, res) => res.json({testing: '1-2-3'}))
 
 
 /* SERVER CATCH-ALL */
