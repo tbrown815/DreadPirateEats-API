@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+- stable
+- '6'
+- '4'
+deploy:
+  provider: heroku
+  api_key:
+    secure: I8MgFnCsu64KMNSuCo/w4mqMwXSbN7mEARgOhG2zshrW3Z0HWfTVKbydvj8Hf6S6cJA6GkgmokAYW7lHG7bX0cs1YQgRHq9nQzlI9NAG20s4iw8/JXoqWpaMKvBP7Y22tNRDkNTNGobUMMLbY5MkF/Jq/JI5P0N//sZrGEGvPOmj51SJe0C9XsMVy0dHUoEOhkzAzjwQkiv6N9k5tHS5dxXhH9q3oGvZChyqGpFHydVz2xM50aXhMthhrHoBQtB4khIFzIJa3JVh+eMjdhKR/2YnRlbHHEwpvZr8pPCKa9/nRUie5A+w3SfQuzaQlAzqJDNDl9RFaHkOi+5TvrC1Z07jO+uDSmOHx1kiva7LurTpB1uuCRWFJdGSeaORzQHUoPGUftQWmEVwwNkYIDBVszWdsjRG5nu3g1C1odFbjz7r+IdRSwZE0silHbR63vwZc2ND/paaRiKyDwwWINDU9bEiZ2/YrV5Li6oT/LFxh/pEb7m9InOtgL/I2Xw+isRpUQtY+dDarjfOA5uySU7+EpKMEKgMbq6TZiNuMQNfmjGkpXiIRyPGwXXNTlYyAJarB4oPlUj0ULeTEEj7KMD1jA/U864ZZv6XUXAX7zMaU0JDFpIq+KJwmPVOXBOkO0oS1GNW0JXQE/PuCGOEaFGMB9wA4/B/bHOpDR61W7akrM0=
+  app: stark-badlands-90054
+  on:
+    repo: BrotherFatcake/DreadPirateEats-API
