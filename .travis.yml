@@ -1,8 +1,5 @@
 language: node_js
-node_js:
-- stable
-- '6'
-- '4'
+node_js: node
 deploy:
   provider: heroku
   api_key:

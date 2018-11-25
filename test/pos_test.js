@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 
 const expect = chai.expect;
 
-//const {userDataModel, userFavsModel} = require('../models')
+const {userDataModel, userFavsModel} = require('../models')
 
 const {app, startServer, stopServer} = require('../server');
 
