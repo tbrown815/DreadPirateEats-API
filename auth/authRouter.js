@@ -29,7 +29,7 @@ router.post('/login', localAuth, (req, res) => {
 
 router.post('/refresh', jwtAuth, (req, res) => {
     const authToken = createAuthToken(req.theUser)
-    res.json({authToken)
+    res.json({authToken})
 });
 
 module.exports = {router};
