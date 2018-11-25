@@ -8,9 +8,8 @@ const morgan = require('morgan');
 const passport = require('passport');
 
 /* MODELS */
-/*
-const {modelName} = require('./models');
-*/
+const {userDataModel, userFavsModel} = require('./models');
+
 
 
 //const {router: authRoute, localStrategy, lwtStrategy} = require('./auth');
@@ -23,12 +22,27 @@ const app = express();
 
 app.use(morgan('common'))
 
+/* CORS */
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(204);
+    }
+    next();
+});
+
+//passport.use(localStrategy);
+//passport.use(jwtStrategy);
+
+
 /* ROUTES */
 /*
-const userLogin = require ('./someRoutePath');
-const userSetup = require ('./someRoutePath');
-const userFavorites = require ('./someRoutePath');
-const userDraw = require ('./someRoutePath');
+const userLogin = require('./someRoutePath');
+const userSetup = require('./someRoutePath');
+const userFavorites = require('./someRoutePath');
+const userDraw = require('./someRoutePath');
 */
 
 /* ENDPOINTS */
