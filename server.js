@@ -18,6 +18,27 @@ const app = express();
 
 app.use(morgan('common'))
 
+/* ROUTERS */
+
+const {router: authRoute, localStrategy, jwtStrategy} = require('./auth');
+/*
+const userRoute = require('./user/userRouter');
+const siteRoute = require('./site/siteRouter');
+*/
+
+
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+/* ENDPOINTS */
+
+app.use('/userAccess', authRoute);
+/*
+app.use('/userSetup', userSetup);
+app.use('/userFavorites', userFavorites);
+app.use('/userDraw', userDraw);
+*/
+
 /* CORS */
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -28,27 +49,6 @@ app.use(function (req, res, next) {
     }
     next();
 });
-
-passport.use(localStrategy);
-passport.use(jwtStrategy);
-
-
-/* ROUTERS */
-
-const {router: authRoute, localStrategy, lwtStrategy} = require('./auth');
-/*
-const userRoute = require('./user/userRouter');
-const siteRoute = require('./site/siteRouter');
-*/
-
-/* ENDPOINTS */
-
-app.use('/userAccess', authRoute);
-/*
-app.use('/userSetup', userSetup);
-app.use('/userFavorites', userFavorites);
-app.use('/userDraw', userDraw);
-*/
 
 //BASIC EP TO TEST SERVER START/STOP
 app.get('/', (req, res) => res.json({testing: '1-2-3'}))
