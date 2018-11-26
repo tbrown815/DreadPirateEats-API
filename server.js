@@ -22,7 +22,7 @@ app.use(morgan('common'))
 const {router: authRoute, localStrategy, jwtStrategy} = require('./auth');
 const accessRoute = require('./access/accessRoute');
 /*
-const userRoute = require('./user/userRouter');
+const userRoute = require('./user/userRoute');
 */
 
 
