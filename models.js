@@ -4,23 +4,20 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 
 
-/*USER DATA SCHEMA */
-
+/* USER DATA SCHEMA */
 const userDataSchema = mongoose.Schema({
     username: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     email: {type: String, required: true, unique: true} 
 })
 
-/*USER FAVORITES SCHEMA */
-
+/* USER FAVORITES SCHEMA */
 const userFavsSchema = mongoose.Schema({
     userRef: {type: mongoose.Schema.Types.ObjectId, ref: 'userdata'},
     resturant: {type: String, require: true}
 })
 
-/*PRE-HOOKS AND VIRTUAL FOR USER FAVS TO REFERENCE AND POPULATE USER NAME FOR FAVORITES */
-
+/* PRE-HOOKS AND VIRTUAL FOR USER FAVS TO REFERENCE AND POPULATE USER NAME FOR FAVORITES */
 userFavsSchema.pre('findOne', function(next) {
     this.populate('userRef');
     next();
@@ -36,7 +33,6 @@ userFavsSchema.virtual('_userRef').get(function() {
 })
 
 /* USER DATA CLEAN-UP METHOD */
-
 userDataSchema.methods.cleanUp = function() {
     return {
         id: this._id,
@@ -46,7 +42,6 @@ userDataSchema.methods.cleanUp = function() {
 }
 
 /* USER FAVORITES CLEAN-UP METHOD */
-
 userFavsSchema.methods.cleanUp = function() {
     return {
         id: this._id,
@@ -56,7 +51,6 @@ userFavsSchema.methods.cleanUp = function() {
 }
 
 /* SET USER TOKEN */
-
 userDataSchema.methods.setToken = function() {
     return {
         id: this._id
@@ -64,19 +58,16 @@ userDataSchema.methods.setToken = function() {
 };
 
 /* PASSWORD HASH */
-
 userDataSchema.statics.hashPass = function(pass) {
     return bcrypt.hash(pass, 10);
 };
 
 /* PASSWORD VALIDATE */
-
-userDataSchema.statics.valPass = function(pass) {
+userDataSchema.methods.valPass = function(pass) {
     return bcrypt.compare(pass, this.password)
 };
 
 /* MODELS AND DB COLLECTIONS */
-
 const userDataModel = mongoose.model('userdata', userDataSchema);
 const userFavsModel = mongoose.model('favsdata', userFavsSchema);
 

@@ -10,11 +10,10 @@ const localAuth = passport.authenticate('local', {session:false});
 const jwtAuth = passport. authenticate('jwt', {session: false});
 
 /* GENERATE VALID JWT */
-
-const createAuthToken = function(theUser) {
-    return jwt.sign({theUser}, config.JWT_SECRET,
+const createAuthToken = function(user) {
+    return jwt.sign({user}, config.JWT_SECRET,
         {
-            subject: theUser.username,
+            subject: user.username,
             expiresIn: config.JWT_EXPIRE,
             algorithm: 'HS256'
         })
@@ -22,13 +21,14 @@ const createAuthToken = function(theUser) {
 
 router.use(bodyParser.json());
 
+/* CREATE ON LOGIN OR REFRESH EXISTING AUTHTOKEN */
 router.post('/login', localAuth, (req, res) => {
-    const authToken = createAuthToken(req.theUser.cleanUp())
+    const authToken = createAuthToken(req.user.cleanUp())
     res.json({authToken})
 });
 
 router.post('/refresh', jwtAuth, (req, res) => {
-    const authToken = createAuthToken(req.theUser)
+    const authToken = createAuthToken(req.user)
     res.json({authToken})
 });
 

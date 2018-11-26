@@ -19,11 +19,10 @@ const app = express();
 app.use(morgan('common'))
 
 /* ROUTERS */
-
 const {router: authRoute, localStrategy, jwtStrategy} = require('./auth');
+const accessRoute = require('./access/accessRoute');
 /*
 const userRoute = require('./user/userRouter');
-const siteRoute = require('./site/siteRouter');
 */
 
 
@@ -31,12 +30,10 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 /* ENDPOINTS */
-
-app.use('/userAccess', authRoute);
+app.use('/userAuth', authRoute);
+app.use('/userAccess', accessRoute);
 /*
-app.use('/userSetup', userSetup);
-app.use('/userFavorites', userFavorites);
-app.use('/userDraw', userDraw);
+app.use('/userSite', userRoute);
 */
 
 /* CORS */
@@ -57,14 +54,12 @@ app.get('/test', (req, res) => res.json({testing: '1-2-3'}))
 
 
 /* SERVER CATCH-ALL */
-
 app.use('*', function(req, res) {
     res.status(404).json('Please use valid endpoint')
 })
 
 
 /* SERVER START/STOP */
-
 let server;
 
 

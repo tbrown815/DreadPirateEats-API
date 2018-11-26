@@ -1,19 +1,12 @@
 'use strict';
 
 const chai = require('chai');
-
 const chaiHttp = require('chai-http');
-
 const faker = require('faker');
-
 const mongoose = require('mongoose');
-
 const expect = chai.expect;
-
 const {userDataModel, userFavsModel} = require('../models')
-
 const {app, startServer, stopServer} = require('../server');
-
 const config = require('../config');
 
 chai.use(chaiHttp);
