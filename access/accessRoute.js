@@ -47,7 +47,7 @@ router.get('/:id', (req, res) => {
 });
 
 /* CREATE NEW USER */
-router.post('/', jsonParser, (req, res) => {
+router.post('/new/', jsonParser, (req, res) => {
     const requiredFields = ['username', 'password', 'email']
 
     const missingField = requiredFields.find(field => !(field in req.body))

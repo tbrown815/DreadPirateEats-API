@@ -52,6 +52,14 @@ router.get('/favs/:id', jwtAuth, (req, res) => {
 
 /* CREATE NEW FAVORITE */
 
+/*
+term = name
+
+location = zip or city, state
+
+c5Sow5YbMMt6PGbvHHKRSw
+
+dwKVBekNl05xPD_np1kuCg
 
 
 
