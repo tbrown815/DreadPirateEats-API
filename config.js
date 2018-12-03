@@ -19,4 +19,4 @@ exports.JWT_EXPIRE = process.env.JWT_EXPIRE || '5d';
 
 //exports.CLIENT_ORIGIN = 'http://localhost:3000'
 
-exports.CLIENT_ORIGIN = 'https://shielded-eyrie-90605.herokuapp.com/'
+exports.CLIENT_ORIGIN = 'https://shielded-eyrie-90605.herokuapp.com'
