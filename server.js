@@ -6,17 +6,20 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
+const cors = require('cors')
 
 /* MODELS */
 const {userDataModel, userFavsModel} = require('./models');
 
 mongoose.Promise = global.Promise;
 
-const {PORT, DATABASE_URL} = require('./config');
+const {PORT, DATABASE_URL, CLIENT_ORIGIN} = require('./config');
 
 const app = express();
 
-app.use(morgan('common'))
+app.use(cors({origin: CLIENT_ORIGIN}))
+
+app.use(morgan('dev'))
 
 /* ROUTERS */
 const {router: authRoute, localStrategy, jwtStrategy} = require('./auth');

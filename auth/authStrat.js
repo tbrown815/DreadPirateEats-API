@@ -6,7 +6,7 @@ const {userDataModel} = require('../models');
 const {JWT_SECRET} = require('../config');
 
 const localStrategy = new LocalStrategy((username, password, callback) => {
-    
+  
     let user;
 
     /* VERIFY USER EXISTS */
@@ -15,6 +15,7 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
             user = _user;
             if(!user) {
                 return Promise.reject({
+                    code: 401,
                     reason: 'ERROR',
                     message: 'Unable to authorize access'
                 });
@@ -26,6 +27,7 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
         .then(isValid => {
             if(!isValid) {
                 return Promise.reject({
+                    code: 401,
                     reason: 'ERROR',
                     message: 'Unable to authorize access'
                 });
@@ -38,7 +40,9 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
             }
             return callback(err, false);
         });
-});
+
+// close the ELSE    }
+}); //localStrategy End
 
 /* EXTRACT JWT FROM REQ HEADER */
 const jwtStrategy = new JwtStrategy(

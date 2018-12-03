@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const {userDataModel} = require('../models');
 const router = express.Router();
 const jsonParser = bodyParser.json();
+const {createAuthToken} = require('../auth/authRouter')
 /*
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
@@ -24,7 +25,7 @@ router.get('/gettoken/:username', (req, res) => {
             code: '500',
             reason: 'ERROR',
             location: req.params.username,
-            message: 'unable to find user'
+            message: '-unable to find user'
         })
     })
 });
@@ -41,14 +42,14 @@ router.get('/:id', (req, res) => {
             code: '500',
             reason: 'ERROR',
             location: req.params.id,
-            message: 'unable to find id'
+            message: '-unable to find id'
         })
     })
 });
 
 /* CREATE NEW USER */
-router.post('/', jsonParser, (req, res) => {
-    const requiredFields = ['username', 'password', 'email']
+router.post('/new', jsonParser, (req, res) => {
+    const requiredFields = ['username', 'email', 'password']
 
     const missingField = requiredFields.find(field => !(field in req.body))
 
@@ -56,12 +57,12 @@ router.post('/', jsonParser, (req, res) => {
         return res.status(422).json({
             code: 422,
             reason: 'ERROR',
-            message: 'Field is missing',
-            location: missingField
+            location: missingField,
+            message: 'is missing from request.'
         }).end();
     }
 
-    const checkString = ['username', 'password', 'email']
+    const checkString = ['username', 'email', 'password',]
 
     const failString = checkString.find(field => 
         field in req.body && typeof req.body[field] !== 'string');
@@ -72,12 +73,12 @@ router.post('/', jsonParser, (req, res) => {
         return res.status(422).json({
             code: 422,
             reason: 'ERROR',
-            message: 'Field does not have the correct type!',
-            location: field
+            location: field,
+            message: 'does not have the correct type.'
         }).end();
     }
 
-    const trimFields = ['username', 'password', 'email']
+    const trimFields = ['username', 'email', 'password']
     const untrimmbedField = trimFields.find(field =>
         req.body[field].trim() !== req.body[field])
 
@@ -87,10 +88,20 @@ router.post('/', jsonParser, (req, res) => {
         return res.status(422).json({
             code: 422,
             reason: 'ERROR',
-            message: 'Field cannot start or end with whitespace!',
-            location: untrimmbedField
+            location: untrimmbedField,
+            message: 'cannot start or end with whitespace.'
         }).end();
     };
+
+
+    if(req.body.password === req.body.username) {
+        return res.status(422).json({
+            code: 422,
+            reason: 'ERROR',
+            location: 'Username and Password',
+            message: 'cannot be equal!'
+        })
+    }
 
     const credentialLength = {
         username: {min: 8, max: 30},
@@ -104,9 +115,9 @@ router.post('/', jsonParser, (req, res) => {
         return res.status(422).json({
             code: 422,
             reason: 'ERROR',
+            location: credentialShort || credentialLong,
             message: credentialShort ? `must be a minimum of ${credentialLength[credentialShort].min} characters long`
-            : `Cannot be longer than ${credentialLength[credentialLong].max} characters`,
-            location: credentialShort || credentialLong
+            : `Cannot be longer than ${credentialLength[credentialLong].max} characters`
         });
     };
 
@@ -119,9 +130,10 @@ router.post('/', jsonParser, (req, res) => {
             return Promise.reject({
                 code: 422,
                 reason: 'ERROR',
-                message: 'Username is not valid, please try again',
-                location: 'username'
+                location: 'Username',
+                message: 'is not valid, please try again.'
             })
+
         };
 
         return userDataModel.hashPass(password);
@@ -134,7 +146,8 @@ router.post('/', jsonParser, (req, res) => {
         })
     })
     .then(user => {
-        return res.status(201).json(user.cleanUp())
+        const authToken = createAuthToken(user.cleanUp())
+        return res.status(201).json({authToken})
     })
     .catch(err => {
         if(err.reason === 'ERROR') {
@@ -144,7 +157,7 @@ router.post('/', jsonParser, (req, res) => {
         res.status(500).json({
             code: '500',
             reason: 'ERROR',
-            location: '',
+            location: 'Oh no! ',
             message: 'Something is broken'
         })
     });

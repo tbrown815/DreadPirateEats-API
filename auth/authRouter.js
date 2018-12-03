@@ -8,6 +8,8 @@ const config = require('../config');
 const router = express.Router();
 const localAuth = passport.authenticate('local', {session:false});
 const jwtAuth = passport. authenticate('jwt', {session: false});
+const jsonParser = bodyParser.json();
+
 
 /* GENERATE VALID JWT */
 const createAuthToken = function(user) {
@@ -23,8 +25,10 @@ router.use(bodyParser.json());
 
 /* CREATE ON LOGIN OR REFRESH EXISTING AUTHTOKEN */
 router.post('/login', localAuth, (req, res) => {
+
     const authToken = createAuthToken(req.user.cleanUp())
     res.json({authToken})
+
 });
 
 router.post('/refresh', jwtAuth, (req, res) => {
@@ -32,4 +36,4 @@ router.post('/refresh', jwtAuth, (req, res) => {
     res.json({authToken})
 });
 
-module.exports = {router};
+module.exports = {router, createAuthToken};

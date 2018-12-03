@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs')
 const userDataSchema = mongoose.Schema({
     username: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    email: {type: String, required: true, unique: true} 
+    email: {type: String, required: true} 
 })
 
 /* USER FAVORITES SCHEMA */
@@ -57,12 +57,12 @@ userDataSchema.methods.setToken = function() {
     };
 };
 
-/* PASSWORD HASH */
+/* password HASH */
 userDataSchema.statics.hashPass = function(pass) {
     return bcrypt.hash(pass, 10);
 };
 
-/* PASSWORD VALIDATE */
+/* password VALIDATE */
 userDataSchema.methods.valPass = function(pass) {
     return bcrypt.compare(pass, this.password)
 };
