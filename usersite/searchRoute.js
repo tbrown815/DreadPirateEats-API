@@ -4,7 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const {YELP_TOKEN} = require('../config');
-const config = require('../config');
 
 const router = express.Router();
 const passport = require('passport');
@@ -13,7 +12,6 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 const request = require('request-promise');
 
 console.log('token: ', YELP_TOKEN)
-console.log('configtoken: ', process.env.YELP_TOKEN)
 
 
 let yelpCall = {
@@ -29,7 +27,7 @@ let yelpCall = {
             json: true,
             headers: 
                 {
-                Authorization: YELP_TOKEN_TMP
+                Authorization: YELP_TOKEN
                 }
          })
     }
