@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const { userDataModel, userFavsModel } = require('../models');
 const router = express.Router();
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const jsonParser = bodyParser.json();
 const jwtAuth = passport.authenticate('jwt', { session: false });
 

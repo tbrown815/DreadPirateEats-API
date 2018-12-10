@@ -22,6 +22,7 @@ app.use(morgan('common'))
 const {router: authRoute, localStrategy, jwtStrategy} = require('./auth');
 const accessRoute = require('./access/accessRoute');
 const userRoute = require('./usersite/userRoute');
+const searchRoute = require('./usersite/searchRoute');
 
 
 passport.use(localStrategy);
@@ -31,6 +32,9 @@ passport.use(jwtStrategy);
 app.use('/userAuth', authRoute);
 app.use('/userAccess', accessRoute);
 app.use('/userSite', userRoute);
+app.use('/userSite', searchRoute);
+
+
 
 /* CORS */
 app.use(function (req, res, next) {
