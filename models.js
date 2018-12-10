@@ -14,7 +14,10 @@ const userDataSchema = mongoose.Schema({
 /* USER FAVORITES SCHEMA */
 const userFavsSchema = mongoose.Schema({
     userRef: {type: mongoose.Schema.Types.ObjectId, ref: 'userdata'},
-    resturant: {type: String, require: true}
+    resturantName: {type: String, require: true},
+    resturantZip: {type: Number, require: false},
+    resturantCost: {type: Number, require: false},
+    resturantYelpId: {type: String, require: false}
 })
 
 /* PRE-HOOKS AND VIRTUAL FOR USER FAVS TO REFERENCE AND POPULATE USER NAME FOR FAVORITES */
@@ -28,8 +31,8 @@ userFavsSchema.pre('find', function(next) {
     next();
 })
 
-userFavsSchema.virtual('_userRef').get(function() {
-    return `${this.userdata.username}`.trim()
+userFavsSchema.virtual('theUser').get(function() {
+    return `${this.userRef.username}`.trim()
 })
 
 /* USER DATA CLEAN-UP METHOD */
@@ -45,8 +48,11 @@ userDataSchema.methods.cleanUp = function() {
 userFavsSchema.methods.cleanUp = function() {
     return {
         id: this._id,
-        userRef: this._userRef,
-        resturant: this.resturant
+        userRef: this.theUser,
+        resturantName: this.resturantName,
+        resturantZip: this.resturantZip,
+        resturantCost: this.resturantCost,
+        resturantYelpId: this.resturantYelpId
     }
 }
 
