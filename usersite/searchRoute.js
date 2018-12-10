@@ -2,7 +2,6 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const { userDataModel, userFavsModel } = require('../models');
 
 const {YELP_TOKEN} = require('../config');
 const config = require('../config');
