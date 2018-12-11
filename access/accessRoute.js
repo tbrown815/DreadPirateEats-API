@@ -48,13 +48,8 @@ router.get('/:id', (req, res) => {
 });
 
 /* CREATE NEW USER */
-<<<<<<< HEAD
-router.post('/new', jsonParser, (req, res) => {
-    const requiredFields = ['username', 'email', 'password']
-=======
 router.post('/new/', jsonParser, (req, res) => {
     const requiredFields = ['username', 'password', 'email']
->>>>>>> userRoute
 
     const missingField = requiredFields.find(field => !(field in req.body))
 

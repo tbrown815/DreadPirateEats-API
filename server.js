@@ -65,7 +65,6 @@ app.use('*', function(req, res) {
 /* SERVER START/STOP */
 let server;
 
-
 //SERVER START
 function startServer(databaseUrl, port = PORT) {
     return new Promise((resolve, reject) => {
