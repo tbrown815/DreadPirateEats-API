@@ -85,7 +85,7 @@ router.get('/favs/:id', jwtAuth, (req, res) => {
 
 /* CREATE NEW FAVORITE */
 router.post('/favs', jsonParser, jwtAuth, (req, res) => {
-    const requiredFields = ['userRef', 'resturantName', 'resturantZip', 'resturantCost', 'resturantYelpId']
+    const requiredFields = ['userRef', 'resturantName', 'resturantYelpId']
 
     const missingField = requiredFields.find(field => !(field in req.body))
 
@@ -98,7 +98,7 @@ router.post('/favs', jsonParser, jwtAuth, (req, res) => {
         }).end();
     }
 
-    const trimFields = ['resturantName', 'resturantZip', 'resturantCost', 'resturantYelpId'];
+    const trimFields = ['resturantName', 'resturantYelpId'];
     const untrimmbedField = trimFields.find(field => req.body[field].trim() !== req.body[field]);
 
     if (untrimmbedField) {
