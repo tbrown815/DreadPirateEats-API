@@ -85,7 +85,7 @@ router.get('/favs/:id', jwtAuth, (req, res) => {
 
 /* CREATE NEW FAVORITE */
 router.post('/favs', jsonParser, jwtAuth, (req, res) => {
-    const requiredFields = ['userRef', 'resturantName', 'resturantYelpId']
+    const requiredFields = ['userRef', 'resturantName', 'resturantYelpId', 'resturantAlias']
 
     const missingField = requiredFields.find(field => !(field in req.body))
 
@@ -98,7 +98,7 @@ router.post('/favs', jsonParser, jwtAuth, (req, res) => {
         }).end();
     }
 
-    const trimFields = ['resturantName', 'resturantYelpId'];
+    const trimFields = ['resturantName', 'resturantYelpId', 'resturantAlias'];
     const untrimmbedField = trimFields.find(field => req.body[field].trim() !== req.body[field]);
 
     if (untrimmbedField) {
@@ -127,9 +127,9 @@ router.post('/favs', jsonParser, jwtAuth, (req, res) => {
                 userFavsModel.create({
                     userRef: req.body.userRef,
                     resturantName: req.body.resturantName,
-                    resturantZip: req.body.resturantZip,
                     resturantCost: req.body.resturantCost,
-                    resturantYelpId: req.body.resturantYelpId
+                    resturantYelpId: req.body.resturantYelpId,
+                    resturantAlias: req.body.resturantAlias
                 })
 
                     .then(result => {
@@ -201,7 +201,7 @@ router.put('/favs/:id', jsonParser, jwtAuth, (req, res) => {
     }
 
     const toUpdate = {};
-    const updateAllowed = ['resturantName', 'resturantZip', 'resturantCost'];
+    const updateAllowed = ['resturantName', 'resturantCost'];
 
     updateAllowed.forEach(data => {
         if (data in req.body) {

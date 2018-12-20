@@ -15,9 +15,9 @@ const userDataSchema = mongoose.Schema({
 const userFavsSchema = mongoose.Schema({
     userRef: {type: mongoose.Schema.Types.ObjectId, ref: 'userdata'},
     resturantName: {type: String, require: true},
-    resturantZip: {type: Number, require: false},
+    resturantAlias: {type: String, require: false},
     resturantCost: {type: Number, require: false},
-    resturantYelpId: {type: String, require: false}
+    resturantYelpId: {type: String, require: false},
 })
 
 /* PRE-HOOKS AND VIRTUAL FOR USER FAVS TO REFERENCE AND POPULATE USER NAME FOR FAVORITES */
@@ -50,7 +50,7 @@ userFavsSchema.methods.cleanUp = function() {
         id: this._id,
         userRef: this.theUser,
         resturantName: this.resturantName,
-        resturantZip: this.resturantZip,
+        resturantAlias: this.resturantAlias,
         resturantCost: this.resturantCost,
         resturantYelpId: this.resturantYelpId
     }
