@@ -51,7 +51,6 @@ userFavsSchema.methods.cleanUp = function() {
         userRef: this.theUser,
         resturantName: this.resturantName,
         resturantAlias: this.resturantAlias,
-        resturantCost: this.resturantCost,
         resturantYelpId: this.resturantYelpId
     }
 }

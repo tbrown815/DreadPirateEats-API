@@ -161,22 +161,8 @@ router.post('/favs', jsonParser, jwtAuth, (req, res) => {
 
 })
 
-
-
-
-/*
-term = name
-
-location = zip or city, state
-
-c5Sow5YbMMt6PGbvHHKRSw
-
-dwKVBekNl05xPD_np1kuCg
-
-
-
 /* EDIT FAVORITE */
-router.put('/favs/:id', jsonParser, jwtAuth, (req, res) => {
+router.patch('/favs/:id', jsonParser, jwtAuth, (req, res) => {
     const requiredFields = ['id']
     const missingField = requiredFields.find(field => !(field in req.body))
 
