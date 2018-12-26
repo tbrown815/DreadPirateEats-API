@@ -18,12 +18,12 @@ let yelpSearchCall = {
     location: null,
     term: null,
     categories: '&categories=restaurants',
-    publicSearch: null,
+    sort_by: null,
     
     searchResturants: function() {
         return request({
             method: 'GET',
-            url: 'https://api.yelp.com/v3/businesses/search?' + yelpSearchCall.location + yelpSearchCall.term + yelpSearchCall.categories + yelpSearchCall.publicSearch,
+            url: 'https://api.yelp.com/v3/businesses/search?' + yelpSearchCall.location + yelpSearchCall.term + yelpSearchCall.categories + yelpSearchCall.sort_by,
             json: true,
             headers: 
                 {
@@ -37,6 +37,7 @@ function yelpSearchApi(params) {
     console.log ('params: ', params)
     yelpSearchCall.location = params.location
     yelpSearchCall.term = params.term
+    yelpSearchCall.sort_by = params.sort_by
 
     return yelpSearchCall.searchResturants()
         
@@ -78,11 +79,11 @@ router.post('/search', jsonParser, (req, res) => {
 
     let location = req.body.resturantZip
     let term = req.body.resturantName
-    let publicSort = req.body.publicSort
+    let sort_by = req.body.publicSort
 
-    console.log('location: ', location, 'term: ',term, 'publicSort: ', publicSort)
+    console.log('location: ', location, 'term: ',term, 'sort_by: ', sort_by)
 
-    yelpSearchApi({location: `location=${location}`, term: `&term=${term}`, publicSearch: `sort_by=${publicSort}`})
+    yelpSearchApi({location: `location=${location}`, term: `&term=${term}`, sort_by: `&sort_by=${sort_by}`})
     
    .then(result => {
            console.log('GENERAL SEARCH USING NAME AND ZIP')
