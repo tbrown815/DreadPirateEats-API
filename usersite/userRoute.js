@@ -17,11 +17,11 @@ router.get('/user/:id', jwtAuth, (req, res) => {
         .then(count => {
 
             if (count < 1) {
-                return res.status(422).json(
+                return res.status(206).json(
                     {
-                        code: 422,
-                        reason: 'ERROR',
-                        message: `${req.params.id} does not exist`,
+                        code: 206,
+                        reason: 'NO FAVORITES',
+                        message: `Favorites not found for ${req.params.id}`,
                         location: `${req.params.id}`
                     })
             }
