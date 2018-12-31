@@ -77,8 +77,8 @@ function yelpDetailApi(params) {
 /*ENDPOINT FOR GENERAL SEARCH USING NAME AND ZIP*/
 router.post('/search', jsonParser, (req, res) => {
 
-    let location = req.body.resturantZip
-    let term = req.body.resturantName
+    let location = req.body.restaurantZip
+    let term = req.body.restaurantName
     let sort_by = req.body.publicSort
 
     console.log('location: ', location, 'term: ',term, 'sort_by: ', sort_by)

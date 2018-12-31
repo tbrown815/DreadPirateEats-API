@@ -14,10 +14,10 @@ const userDataSchema = mongoose.Schema({
 /* USER FAVORITES SCHEMA */
 const userFavsSchema = mongoose.Schema({
     userRef: {type: mongoose.Schema.Types.ObjectId, ref: 'userdata'},
-    resturantName: {type: String, require: true},
-    resturantAlias: {type: String, require: false},
-    resturantCost: {type: Number, require: false},
-    resturantYelpId: {type: String, require: false},
+    restaurantName: {type: String, require: true},
+    restaurantAlias: {type: String, require: false},
+    restaurantCost: {type: Number, require: false},
+    restaurantYelpId: {type: String, require: false},
 })
 
 /* PRE-HOOKS AND VIRTUAL FOR USER FAVS TO REFERENCE AND POPULATE USER NAME FOR FAVORITES */
@@ -49,9 +49,9 @@ userFavsSchema.methods.cleanUp = function() {
     return {
         id: this._id,
         userRef: this.theUser,
-        resturantName: this.resturantName,
-        resturantAlias: this.resturantAlias,
-        resturantYelpId: this.resturantYelpId
+        restaurantName: this.restaurantName,
+        restaurantAlias: this.restaurantAlias,
+        restaurantYelpId: this.restaurantYelpId
     }
 }
 

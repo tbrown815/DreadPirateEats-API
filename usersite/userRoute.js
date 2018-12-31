@@ -26,7 +26,7 @@ router.get('/user/:id', jwtAuth, (req, res) => {
                     })
             }
 
-            userFavsModel.find({ userRef: req.params.id }).sort({'resturantName': 1})
+            userFavsModel.find({ userRef: req.params.id }).sort({'restaurantName': 1})
 
                 .then(userFavs => {
                     res.json({
@@ -85,7 +85,7 @@ router.get('/favs/:id', jwtAuth, (req, res) => {
 
 /* CREATE NEW FAVORITE */
 router.post('/favs', jsonParser, jwtAuth, (req, res) => {
-    const requiredFields = ['userRef', 'resturantName', 'resturantYelpId', 'resturantAlias']
+    const requiredFields = ['userRef', 'restaurantName', 'restaurantYelpId', 'restaurantAlias']
 
     const missingField = requiredFields.find(field => !(field in req.body))
 
@@ -98,7 +98,7 @@ router.post('/favs', jsonParser, jwtAuth, (req, res) => {
         }).end();
     }
 
-    const trimFields = ['resturantName', 'resturantYelpId', 'resturantAlias'];
+    const trimFields = ['restaurantName', 'restaurantYelpId', 'restaurantAlias'];
     const untrimmbedField = trimFields.find(field => req.body[field].trim() !== req.body[field]);
 
     if (untrimmbedField) {
@@ -126,10 +126,10 @@ router.post('/favs', jsonParser, jwtAuth, (req, res) => {
             else {
                 userFavsModel.create({
                     userRef: req.body.userRef,
-                    resturantName: req.body.resturantName,
-                    resturantCost: req.body.resturantCost,
-                    resturantYelpId: req.body.resturantYelpId,
-                    resturantAlias: req.body.resturantAlias
+                    restaurantName: req.body.restaurantName,
+                    restaurantCost: req.body.restaurantCost,
+                    restaurantYelpId: req.body.restaurantYelpId,
+                    restaurantAlias: req.body.restaurantAlias
                 })
 
                     .then(result => {
@@ -187,7 +187,7 @@ router.patch('/favs/:id', jsonParser, jwtAuth, (req, res) => {
     }
 
     const toUpdate = {};
-    const updateAllowed = ['resturantName', 'resturantCost'];
+    const updateAllowed = ['restaurantName', 'restaurantCost'];
 
     updateAllowed.forEach(data => {
         if (data in req.body) {
