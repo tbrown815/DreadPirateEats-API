@@ -411,7 +411,6 @@ describe('Test Resources', function () {
                         expect(res.body).to.not.be.null;
                         expect(res.body.id).to.be.a('string');
                         expect(res.body.id).to.have.lengthOf.at.least(1);
-                        expect(res.body.userRef).to.equal(userData.username)
                         expect(res.body.userRef).to.be.a('string');
                         expect(res.body.userRef).to.have.lengthOf.at.least(1);
                         expect(res.body.restaurantName).to.equal(newFavData.restaurantName)
