@@ -16,7 +16,7 @@ const userFavsSchema = mongoose.Schema({
     userRef: {type: mongoose.Schema.Types.ObjectId, ref: 'userdata'},
     restaurantName: {type: String, require: true},
     restaurantAlias: {type: String, require: false},
-    restaurantCost: {type: Number, require: false},
+   // restaurantCost: {type: Number, require: false},
     restaurantYelpId: {type: String, require: false},
 })
 

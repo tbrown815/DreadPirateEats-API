@@ -81,7 +81,7 @@ router.post('/search', jsonParser, (req, res) => {
     let term = req.body.restaurantName
     let sort_by = req.body.publicSort
 
-    console.log('location: ', location, 'term: ',term, 'sort_by: ', sort_by)
+    console.log('location1: ', location, 'term: ',term, 'sort_by: ', sort_by)
 
     yelpSearchApi({location: `location=${location}`, term: `&term=${term}`, sort_by: `&sort_by=${sort_by}`})
     

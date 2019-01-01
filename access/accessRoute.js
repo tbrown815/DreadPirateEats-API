@@ -13,6 +13,7 @@ const jwtAuth = passport.authenticate('jwt', {session: false});
 */
 
 /* GET USER TOKEN */
+
 router.get('/gettoken/:username', (req, res) => {
 
     userDataModel.findOne({username: req.params.username})
@@ -29,6 +30,7 @@ router.get('/gettoken/:username', (req, res) => {
         })
     })
 });
+
 
 /* GET USER DATA BY USER TOKEN */
 router.get('/:id', (req, res) => {
@@ -104,7 +106,7 @@ router.post('/new/', jsonParser, (req, res) => {
     }
 
     const credentialLength = {
-        username: {min: 8, max: 30},
+        username: {min: 4, max: 30},
         password: {min: 8, max: 60}
     };
 

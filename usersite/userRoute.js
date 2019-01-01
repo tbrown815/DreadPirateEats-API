@@ -57,9 +57,9 @@ router.get('/favs/:id', jwtAuth, (req, res) => {
         .then(count => {
 
             if (count < 1) {
-                return res.status(422).json(
+                return res.status(410).json(
                     {
-                        code: 422,
+                        code: 410,
                         reason: 'ERROR',
                         message: `${req.params.id} does not exist`,
                         location: `${req.params.id}`
@@ -127,7 +127,6 @@ router.post('/favs', jsonParser, jwtAuth, (req, res) => {
                 userFavsModel.create({
                     userRef: req.body.userRef,
                     restaurantName: req.body.restaurantName,
-                    restaurantCost: req.body.restaurantCost,
                     restaurantYelpId: req.body.restaurantYelpId,
                     restaurantAlias: req.body.restaurantAlias
                 })
@@ -187,7 +186,7 @@ router.patch('/favs/:id', jsonParser, jwtAuth, (req, res) => {
     }
 
     const toUpdate = {};
-    const updateAllowed = ['restaurantName', 'restaurantCost'];
+    const updateAllowed = ['restaurantName'];
 
     updateAllowed.forEach(data => {
         if (data in req.body) {
@@ -217,9 +216,9 @@ router.delete('/favs/:id', jwtAuth, (req, res) => {
 
             if (count < 1) {
 
-                return res.status(422).json(
+                return res.status(410).json(
                     {
-                        code: 422,
+                        code: 410,
                         reason: 'ERROR',
                         message: `${req.params.id} does not exist`,
                         location: `${req.params.id}`
@@ -228,7 +227,6 @@ router.delete('/favs/:id', jwtAuth, (req, res) => {
             }
 
             userFavsModel.findByIdAndRemove(req.params.id, function () {
-                res.json({ "code": "200", "reason": "SUCCESS", "location": "", "message": `User record has been removed` })
                 return res.status(200).json(
                     {
                         code: 200,
