@@ -546,5 +546,5 @@ describe('Test Resources', function () {
 
 
     //TEST RESOURCES END
+    */
 });
-*/
