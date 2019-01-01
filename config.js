@@ -1,7 +1,7 @@
 'use strict';
 
 exports.DATABASE_URL = process.env.DATABASE_URL;
-exports.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL;
+exports.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL || 'mongodb://localhost/test-dreadpirateeats';
 exports.PORT = process.env.PORT;
 
 exports.YELP_TOKEN = process.env.YELP_TOKEN;
