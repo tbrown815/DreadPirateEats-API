@@ -16,8 +16,6 @@ const { app, startServer, stopServer } = require('../server');
 
 const config = require('../config');
 
-const {TEST_DATABASE_URL} = require('../config')
-
 let userData;
 
 let loginCredentials = {
@@ -220,7 +218,7 @@ describe('Test Resources', function () {
 
     //BEFORE - RUNS TO START SERVER
     before(function () {
-        return startServer(TEST_DATABASE_URL);
+        return startServer(config.TEST_DATABASE_URL);
     });
 
     beforeEach(function () {
