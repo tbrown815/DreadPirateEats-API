@@ -1,3 +1,5 @@
+/*
+
 'use strict';
 
 const chai = require('chai');
@@ -550,3 +552,5 @@ describe('Test Resources', function () {
 
     //TEST RESOURCES END
 });
+
+*/

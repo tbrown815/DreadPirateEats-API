@@ -259,7 +259,7 @@ describe('Test Resources', function () {
         })
 
     });
-
+/*
     //USER TESTS
     describe('USERS IS ABLE TO LOGIN', function () {
 
@@ -547,3 +547,4 @@ describe('Test Resources', function () {
 
     //TEST RESOURCES END
 });
+*/
