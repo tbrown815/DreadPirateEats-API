@@ -1,5 +1,3 @@
-/*
-
 'use strict';
 
 const chai = require('chai');
@@ -12,7 +10,7 @@ const mongoose = require('mongoose');
 
 const expect = chai.expect;
 
-const {userDataModel, userFavsModel} = require('../models')
+const { userDataModel, userFavsModel } = require('../models')
 
 const { app, startServer, stopServer } = require('../server');
 
@@ -31,62 +29,62 @@ let testToken;
 
 let testLoginUserData = [
     {
-        "username" : "ricksanchez",
-        "password" : "$2a$10$lSCYj7sGs/8IxFvH2KHY5ecVgreWXpi6OEvhOK7UqqyCKGMK95i1y",
-        "email" : "test@test.com"
+        "username": "ricksanchez",
+        "password": "$2a$10$lSCYj7sGs/8IxFvH2KHY5ecVgreWXpi6OEvhOK7UqqyCKGMK95i1y",
+        "email": "test@test.com"
     }
 ]
 
 let testRestaurantData = [
     {
-        "restaurantName" : "Best Bison",
-        "restaurantYelpId" : "XY2gaLVR4UPHb9n0qP_TqA",
-        "restaurantAlias" : "best-bison-omaha-3"
+        "restaurantName": "Best Bison",
+        "restaurantYelpId": "XY2gaLVR4UPHb9n0qP_TqA",
+        "restaurantAlias": "best-bison-omaha-3"
     },
     {
-        "restaurantName" : "Chucks Restaurant",
-        "restaurantYelpId" : "VXDUsmrsjYAT8FTGQ0gfwg",
-        "restaurantAlias" : "chucks-restaurant-des-moines"
+        "restaurantName": "Chucks Restaurant",
+        "restaurantYelpId": "VXDUsmrsjYAT8FTGQ0gfwg",
+        "restaurantAlias": "chucks-restaurant-des-moines"
     },
     {
-        "restaurantName" : "Cooper's On 5th",
-        "restaurantYelpId" : "gbd0C2IfDBsk_Z-R9NcVDw",
-        "restaurantAlias" : "coopers-on-5th-west-des-moines"
+        "restaurantName": "Cooper's On 5th",
+        "restaurantYelpId": "gbd0C2IfDBsk_Z-R9NcVDw",
+        "restaurantAlias": "coopers-on-5th-west-des-moines"
     },
     {
-        "restaurantName" : "HuHot Mongolian Grill",
-        "restaurantYelpId" : "GPVDUx06qpXrJ-zTgv_VPw",
-        "restaurantAlias" : "huhot-mongolian-grill-west-des-moines"
+        "restaurantName": "HuHot Mongolian Grill",
+        "restaurantYelpId": "GPVDUx06qpXrJ-zTgv_VPw",
+        "restaurantAlias": "huhot-mongolian-grill-west-des-moines"
     },
     {
-        "restaurantName" : "Sam & Gabes",
-        "restaurantYelpId" : "Xj8ve8_47C_1SDVN1cKIsg",
-        "restaurantAlias" : "sam-and-gabes-urbandale"
+        "restaurantName": "Sam & Gabes",
+        "restaurantYelpId": "Xj8ve8_47C_1SDVN1cKIsg",
+        "restaurantAlias": "sam-and-gabes-urbandale"
     },
     {
-        "restaurantName" : "Tasty Tacos",
-        "restaurantYelpId" : "LzaLzKOa2MLraVxztxmy-A",
-        "restaurantAlias" : "tasty-tacos-urbandale"
+        "restaurantName": "Tasty Tacos",
+        "restaurantYelpId": "LzaLzKOa2MLraVxztxmy-A",
+        "restaurantAlias": "tasty-tacos-urbandale"
     },
     {
-        "restaurantName" : "California Tacos & More",
-        "restaurantYelpId" : "FyC4FzmUwHSK5pFS1EhP1g",
-        "restaurantAlias" : "california-tacos-and-more-omaha"
+        "restaurantName": "California Tacos & More",
+        "restaurantYelpId": "FyC4FzmUwHSK5pFS1EhP1g",
+        "restaurantAlias": "california-tacos-and-more-omaha"
     },
     {
-        "restaurantName" : "Dinosaur Bar-B-Que",
-        "restaurantYelpId" : "rg941Qb9wA7_AM_TwO9OAg",
-        "restaurantAlias" : "dinosaur-bar-b-que-stamford"
+        "restaurantName": "Dinosaur Bar-B-Que",
+        "restaurantYelpId": "rg941Qb9wA7_AM_TwO9OAg",
+        "restaurantAlias": "dinosaur-bar-b-que-stamford"
     },
     {
-        "restaurantName" : "Caribbean Restaurant",
-        "restaurantYelpId" : "hXlJOg894rFKIgWhaCWwfw",
-        "restaurantAlias" : "caribbean-restaurant-rome"
+        "restaurantName": "Caribbean Restaurant",
+        "restaurantYelpId": "hXlJOg894rFKIgWhaCWwfw",
+        "restaurantAlias": "caribbean-restaurant-rome"
     },
     {
-        "restaurantName" : "The Flying Elk",
-        "restaurantYelpId" : "VZUrYnDCTroPt7TQ_0mA2A",
-        "restaurantAlias" : "the-flying-elk-stockholm"
+        "restaurantName": "The Flying Elk",
+        "restaurantYelpId": "VZUrYnDCTroPt7TQ_0mA2A",
+        "restaurantAlias": "the-flying-elk-stockholm"
     }
 ]
 
@@ -121,7 +119,7 @@ function loadLoginData(testLoginUserData) {
         username: testLoginUserData.username,
         password: testLoginUserData.password,
         email: testLoginUserData.email
-        }
+    }
 };
 
 
@@ -139,6 +137,14 @@ function populateTestData() {
     }
 };
 
+function populateEmptyUser(emptyUserData) {
+    const emptyTestData = []
+
+    emptyTestData.push(emptyUserData)
+
+    return userDataModel.insertMany(emptyTestData);
+}
+
 function generateData() {
 
     const id = require('mongoose').Types.ObjectId();
@@ -148,21 +154,21 @@ function generateData() {
         username: faker.internet.userName(),
         password: faker.internet.password(),
         email: faker.internet.email()
-        }
+    }
 };
 
 //Create test data for Favs Collection
 function populateTestFavData() {
     console.info('test favorite data is being created');
     const testfavData = [];
-    
+
     for (let i = 0; i < 10; i++) {
         testfavData.push(genUserFavs(testRestaurantData[i]));
 
         favData = testfavData[0];
 
         return userFavsModel.insertMany(testfavData);
-        
+
     }
 };
 
@@ -242,7 +248,7 @@ describe('Test Resources', function () {
     afterEach(function () {
         return resetDB();
     });
-    
+
     after(function () {
         return stopServer();
     });
@@ -263,98 +269,314 @@ describe('Test Resources', function () {
     });
 
     //USER TESTS
-    describe('USERS IS ABLE TO LOGIN', function () {
+    describe('USER TEST SET', function () {
 
-        it('USER LOGIN, JWT RECEIVED ON SUCCESS', function () {
+        it('USER UNABLE TO LOGIN RCVS 401 AND EXPECTED ERROR', function () {
 
-            let badCredentials = {
-                username: "ricksanchez",
+            let badUserCredentials = {
+                username: "ricksanchezz",
                 password: "test9033"
             }
 
             return chai.request(app)
                 .post(`/userAuth/login`)
-                .send(loginCredentials)
+                .send(badUserCredentials)
                 .then(function (res) {
-                    expect(res).to.have.status(200);
+                    console.log('res: ', res.error.status, res.error.text)
+                    expect(res.error).to.have.any.keys('status', 'text')
+                    expect(res).to.have.status(401);
+                    expect(res.error.status).to.equal(401);
+                    expect(res.error.text).to.have.string(`Unauthorized`);
+                })
+                .then(function () {
+
+                    let badPassCredentials = {
+                        username: "ricksanchez",
+                        password: "test1099"
+                    }
+                    return chai.request(app)
+                        .post(`/userAuth/login`)
+                        .send(badPassCredentials)
+                        .then(function (res) {
+                            expect(res.error).to.have.any.keys('status', 'text')
+                            expect(res).to.have.status(401);
+                            expect(res.error.status).to.equal(401);
+                            expect(res.error.text).to.have.string(`Unauthorized`);
+                            console.log('res.body: ', res.error.status, res.error.text)
+                        })
+
+                })
+        })
+    })
+
+    describe('CREATE USER TEST SET', function () {
+
+        it('POST CALL TO CREATE NEW USER - FIELDS ARE MISSING FROM REQUEST', function () {
+
+            const badUsernameData = {
+                password: faker.internet.password(),
+                email: faker.internet.email()
+            }
+
+            console.log('badUsernameData: ', badUsernameData)
+
+            return chai.request(app)
+
+                .post('/userAccess/new/')
+
+                .send(badUsernameData)
+
+                .then(function (res) {
+                    expect(res).to.be.json;
                     expect(res).to.be.a('object');
-                    expect(res.body).to.have.all.keys('authToken')
-                    expect(res.body.authToken).to.have.lengthOf.at.least(1);
-                    expect(res.body.authToken).to.be.a('string');
-                    console.info('authToken: ', res.text)
+                    expect(res).to.have.status(422);
+                    expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(res.body.reason).to.have.string('ERROR');
+                    expect(res.body.message).to.have.string('is missing from request.');
+                    console.info('res: ', res.body)
+
+                })
+                .then(function () {
+
+                    const badPasswordData = {
+                        username: faker.internet.userName(),
+                        email: faker.internet.email()
+                    }
+
+                    console.log('badPasswordData: ', badPasswordData)
+
+                    return chai.request(app)
+
+                        .post('/userAccess/new/')
+
+                        .send(badUsernameData)
+                })
+                .then(function (res) {
+                    expect(res).to.be.json;
+                    expect(res).to.be.a('object');
+                    expect(res).to.have.status(422);
+                    expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(res.body.reason).to.have.string('ERROR');
+                    expect(res.body.message).to.have.string('is missing from request.');
+                    console.info('res: ', res.body)
+                })
+                .then(function () {
+
+                    const badEmailData = {
+                        username: faker.internet.userName(),
+                        password: faker.internet.password(),
+                    }
+
+                    console.log('badEmailData: ', badEmailData)
+
+                    return chai.request(app)
+
+                        .post('/userAccess/new/')
+
+                        .send(badEmailData)
+                })
+                .then(function (res) {
+                    expect(res).to.be.json;
+                    expect(res).to.be.a('object');
+                    expect(res).to.have.status(422);
+                    expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(res.body.reason).to.have.string('ERROR');
+                    expect(res.body.message).to.have.string('is missing from request.');
+                    console.info('res: ', res.body)
+                })
+        })
+
+        it('POST CALL TO CREATE NEW USER - FIELDS HAVE WHITESPACE', function () {
+
+            const badUsernameData = {
+                username: faker.internet.userName() + ' ',
+                password: faker.internet.password(),
+                email: faker.internet.email()
+            }
+
+            console.log('badUsernameData: ', badUsernameData)
+
+            return chai.request(app)
+
+                .post('/userAccess/new/')
+
+                .send(badUsernameData)
+
+                .then(function (res) {
+                    expect(res).to.be.json;
+                    expect(res).to.be.a('object');
+                    expect(res).to.have.status(422);
+                    expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(res.body.reason).to.have.string('ERROR');
+                    expect(res.body.location).to.have.string('username');
+                    expect(res.body.message).to.have.string('cannot contain whitespace.');
+                    console.info('res: ', res.body)
+
+                })
+                .then(function () {
+
+                    const badPasswordData = {
+                        username: faker.internet.userName(),
+                        password: ' ' + faker.internet.password(),
+                        email: faker.internet.email()
+                    }
+
+                    console.log('badPasswordData: ', badPasswordData)
+
+                    return chai.request(app)
+
+                        .post('/userAccess/new/')
+
+                        .send(badPasswordData)
+                })
+                .then(function (res) {
+                    console.info('res: ', res.body)
+                    expect(res).to.be.json;
+                    expect(res).to.be.a('object');
+                    expect(res).to.have.status(422);
+                    expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(res.body.reason).to.have.string('ERROR');
+                    expect(res.body.location).to.have.string('password');
+                    expect(res.body.message).to.have.string('cannot contain whitespace.');
+                })
+                .then(function () {
+
+                    const badEmailData = {
+                        username: faker.internet.userName(),
+                        password: faker.internet.password(),
+                        email: ' ' + faker.internet.email() + ' '
+                    }
+
+                    console.log('badEmailData: ', badEmailData)
+
+                    return chai.request(app)
+
+                        .post('/userAccess/new/')
+
+                        .send(badEmailData)
+                })
+                .then(function (res) {
+                    console.info('res: ', res.body)
+                    expect(res).to.be.json;
+                    expect(res).to.be.a('object');
+                    expect(res).to.have.status(422);
+                    expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(res.body.reason).to.have.string('ERROR');
+                    expect(res.body.location).to.have.string('email');
+                    expect(res.body.message).to.have.string('cannot contain whitespace.');
+                })
+        })
+
+        it('POST CALL TO CREATE NEW USER - USERNAME OR PASSWORD FIELD LENGTH IS BAD', function () {
+
+            const userTooShort = {
+                username: 'abc',
+                password: faker.internet.password(),
+                email: faker.internet.email()
+            }
+
+            console.log('userTooShort: ', userTooShort)
+
+            return chai.request(app)
+
+                .post('/userAccess/new/')
+
+                .send(userTooShort)
+
+                .then(function (res) {
+                    console.info('res: ', res.body)
+                    expect(res).to.be.json;
+                    expect(res).to.be.a('object');
+                    expect(res).to.have.status(422);
+                    expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(res.body.reason).to.have.string('ERROR');
+                    expect(res.body.location).to.have.string('username');
+                    expect(res.body.message).to.have.string('must be a minimum of 4 characters long');
+
+                })
+                .then(function () {
+
+                    const userTooLong = {
+                        username: 'abcdefghijklmnopqrstuvwxyz12345',
+                        password: faker.internet.password(),
+                        email: faker.internet.email()
+                    }
+
+                    console.log('userTooLong: ', userTooLong)
+
+                    return chai.request(app)
+
+                        .post('/userAccess/new/')
+
+                        .send(userTooLong)
+                })
+                .then(function (res) {
+                    console.info('res: ', res.body)
+                    expect(res).to.be.json;
+                    expect(res).to.be.a('object');
+                    expect(res).to.have.status(422);
+                    expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(res.body.reason).to.have.string('ERROR');
+                    expect(res.body.location).to.have.string('username');
+                    expect(res.body.message).to.have.string('Cannot be longer than 30 characters');
+                })//PASS
+                .then(function () {
+
+                    const passTooShort = {
+                        username: faker.internet.userName(),
+                        password: 'abcd124',
+                        email: faker.internet.email()
+                    }
+
+                    console.log('passTooShort: ', passTooShort)
+
+                    return chai.request(app)
+
+                        .post('/userAccess/new/')
+
+                        .send(passTooShort)
+                })
+                .then(function (res) {
+                    console.info('res: ', res.body)
+                    expect(res).to.be.json;
+                    expect(res).to.be.a('object');
+                    expect(res).to.have.status(422);
+                    expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(res.body.reason).to.have.string('ERROR');
+                    expect(res.body.location).to.have.string('password');
+                    expect(res.body.message).to.have.string('must be a minimum of 8 characters long');
+                })
+                .then(function () {
+
+                    const passTooLong = {
+                        username: faker.internet.userName(),
+                        password: 'abcdefghijklmnopqrstuvwxyz12345abcdefghijklmnopqrstuvwxyz12345',
+                        email: faker.internet.email()
+                    }
+
+                    console.log('passTooLong: ', passTooLong)
+
+                    return chai.request(app)
+
+                        .post('/userAccess/new/')
+
+                        .send(passTooLong)
+                })
+                .then(function (res) {
+                    console.info('res: ', res.body)
+                    expect(res).to.be.json;
+                    expect(res).to.be.a('object');
+                    expect(res).to.have.status(422);
+                    expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(res.body.reason).to.have.string('ERROR');
+                    expect(res.body.location).to.have.string('password');
+                    expect(res.body.message).to.have.string('Cannot be longer than 60 characters');
                 })
 
         })
-    });
-
-        describe('CREATE USER TEST SET', function () {
-
-            it('POST CALL TO CREATE NEW USER', function () {
-
-                const genData = generateData();
-
-                console.log('genData: ', genData)
-
-                return chai.request(app)
-                
-                .post('/userAccess/new/')
-
-                    .send(genData)
-
-                    .then(function (res) {
-                        expect(res).to.have.status(201);
-                        expect(res).to.be.json;
-                        expect(res).to.be.a('object');
-                        expect(res.body).to.have.all.keys('authToken')
-                        expect(res.body.authToken).to.have.lengthOf.at.least(1);
-                        expect(res.body.authToken).to.be.a('string');
-
-                        console.info('authToken: ', res.text)
-
-                        let userName = genData.username
-                        return userName
- 
-                    })
-                    .then(function (userName) {
-                        return chai.request(app)
-                        .get(`/userAccess/gettoken/${userName}`)
-                        
-                    })                        
-                    .then(function (res) {
-                        expect(res.body.id).to.be.a('string');
-                        expect(res.body.id).to.have.lengthOf.at.least(1);
-
-                        let userTokenId =  res.body.id
-
-                        return userTokenId
-
-                    })
-                    .then(function (userTokenId) {
-
-                        console.log('userTokenId: ', userTokenId)
-
-                        return chai.request(app) 
-
-                        .get(`/userAccess/${userTokenId}`)
-                  
-                    })
-                    .then(function (res) {
-                        expect(res.body.id).to.be.a('string');
-                        expect(res.body.username).to.equal(genData.username);
-                        expect(res.body.username).to.be.a('string');
-                        expect(res.body.email).to.equal(genData.email);
-                        expect(res.body.email).to.have.lengthOf.at.least(1);
-                        expect(res.body.email).to.be.a('string');
-                        expect(res.body.email).to.have.string('@');
-                        expect(res.body.email).to.have.string('.');
-                        console.info('res: ', res.body)
-
-                    })
-            })
 
 
-
-        });//USERS TEST BLOCK END
+    });//USERS TEST BLOCK END
 
 
     // FAVS TEST BLOCK
@@ -362,7 +584,7 @@ describe('Test Resources', function () {
     describe('FAVORITES TEST SET', function () {
 
 
-        it('SEARCH FOR AND CREATE NEW FAVORITE', function () {
+        it('SEARCH FOR RESTAURANT RETURNS ERROR DUE TO MISSING FIELD', function () {
 
             let foodDataRandom = Math.floor(Math.random() * parseInt(testFoodData.length)) + 0;
             let sortDataRandom = Math.floor(Math.random() * parseInt(testSortData.length)) + 0;
@@ -371,186 +593,265 @@ describe('Test Resources', function () {
             const foodData = testFoodData[foodDataRandom]
             const sortData = testSortData[sortDataRandom]
             const zipData = testZipCodes[zipDataRandom];
-            
-            const searchPayload = {
-                "restaurantZip": zipData,
+
+            const badPayloadZip = {
                 "restaurantName": foodData,
                 "publicSort": sortData
             }
 
-            console.log('searchPayload: ', searchPayload)
+            console.log('searchPayload: ', badPayloadZip)
 
             return chai.request(app)
                 .post('/userSite/search/')
-                .send(searchPayload)
+                .send(badPayloadZip)
                 .then(function (res) {
 
-                    console.log('res.body: ', res.body.businesses[0])
-                    expect(res).to.have.status(200);
+                    let parsedError = JSON.parse(res.error.text)
+                    console.log('parsedError: ', parsedError)
                     expect(res).to.be.a('object');
-                    expect(res.body).to.not.be.null;
-
-                    let newFavData = {
-                        "userRef": userData._id,
-                        "restaurantName": res.body.businesses[0].name,
-                        "restaurantYelpId": res.body.businesses[0].id,
-                        "restaurantAlias": res.body.businesses[0].alias
-                    }
-
-                    return newFavData
-
-                })
-                .then(function (newFavData) {
-                    console.log('newFavData: ', newFavData)
-
-                    return chai.request(app)
-                    .post('/userSite/favs/')
-                    .set('Authorization', `Bearer ${testToken}`)
-                    .set('Content-Type', 'application/json')
-                    .send(newFavData)
-                    .then(function(res) {
-                        console.log('Create New res.body: ', res.body)
-
-                        expect(res).to.have.status(201);
-                        expect(res).to.be.a('object');
-                        expect(res.body).to.not.be.null;
-                        expect(res.body.id).to.be.a('string');
-                        expect(res.body.id).to.have.lengthOf.at.least(1);
-                        expect(res.body.userRef).to.equal(userData.username)
-                        expect(res.body.userRef).to.be.a('string');
-                        expect(res.body.userRef).to.have.lengthOf.at.least(1);
-                        expect(res.body.restaurantName).to.equal(newFavData.restaurantName)
-                        expect(res.body.restaurantName).to.be.a('string');
-                        expect(res.body.restaurantName).to.have.lengthOf.at.least(1);
-                        expect(res.body.restaurantAlias).to.equal(newFavData.restaurantAlias)
-                        expect(res.body.restaurantAlias).to.be.a('string');
-                        expect(res.body.restaurantAlias).to.have.lengthOf.at.least(1);
-                        expect(res.body.restaurantYelpId).to.equal(newFavData.restaurantYelpId)
-                        expect(res.body.restaurantYelpId).to.be.a('string');
-                        expect(res.body.restaurantYelpId).to.have.lengthOf.at.least(1);
-
+                    expect(res).to.have.status(422);
+                    expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(parsedError.reason).to.have.string('ERROR');
+                    expect(parsedError.location).to.have.string('restaurantZip');
+                    expect(parsedError.message).to.have.string('Field is missing');
 
                     })
+                    .then(function() {
+                        const badPayloadName = {
+                        "restaurantZip": zipData,
+                        "publicSort": sortData
+                        }
+            
+                        console.log('searchPayload: ', badPayloadName)
+            
+                        return chai.request(app)
+                            .post('/userSite/search/')
+                            .send(badPayloadName)
+                    })
+                    .then(function (res) {
 
+                        let parsedError = JSON.parse(res.error.text)
+                        console.log('parsedError: ', parsedError)
+                        expect(res).to.be.a('object');
+                        expect(res).to.have.status(422);
+                        expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message')
+                        expect(parsedError.reason).to.have.string('ERROR');
+                        expect(parsedError.location).to.have.string('restaurantName');
+                        expect(parsedError.message).to.have.string('Field is missing');
+    
+                        })
+                        .then(function() {
+                            const badPayloadSort = {
+                            "restaurantZip": zipData,
+                            "restaurantName": foodData
+                            }
+                
+                            console.log('searchPayload: ', badPayloadSort)
+                
+                            return chai.request(app)
+                                .post('/userSite/search/')
+                                .send(badPayloadSort)
+                        })
+                        .then(function (res) {
+    
+                            let parsedError = JSON.parse(res.error.text)
+                            console.log('parsedError: ', parsedError)
+                            expect(res).to.be.a('object');
+                            expect(res).to.have.status(422);
+                            expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message')
+                            expect(parsedError.reason).to.have.string('ERROR');
+                            expect(parsedError.location).to.have.string('publicSort');
+                            expect(parsedError.message).to.have.string('Field is missing');
+        
+                            })
                 })
-        })
+  
+                it('SEARCH FOR RESTAURANT RETURNS ERROR DUE TO WHITE SPACE', function () {
 
-        it('REQUEST USER FAVS BY USERTOKEN', function () {
+                    let foodDataRandom = Math.floor(Math.random() * parseInt(testFoodData.length)) + 0;
+                    let sortDataRandom = Math.floor(Math.random() * parseInt(testSortData.length)) + 0;
+                    let zipDataRandom = Math.floor(Math.random() * parseInt(testZipCodes.length)) + 0;
+        
+                    const foodData = testFoodData[foodDataRandom]
+                    const sortData = testSortData[sortDataRandom]
+                    const zipData = testZipCodes[zipDataRandom];
+        
+                    const badPayloadZip = {
+                        "restaurantName": foodData,
+                        "restaurantZip": zipData + ' ',
+                        "publicSort": sortData
+                    }
+        
+                    console.log('searchPayload: ', badPayloadZip)
+        
+                    return chai.request(app)
+                        .post('/userSite/search/')
+                        .send(badPayloadZip)
+                        .then(function (res) {
+        
+                            let parsedError = JSON.parse(res.error.text)
+                            console.log('parsedError: ', parsedError)
+                            expect(res).to.be.a('object');
+                            expect(res).to.have.status(422);
+                            expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message')
+                            expect(parsedError.reason).to.have.string('ERROR');
+                            expect(parsedError.location).to.have.string('restaurantZip');
+                            expect(parsedError.message).to.have.string('Field cannot contain whitespace!');
+        
+                            })
+                            .then(function() {
+                                const badPayloadName = {
+                                    "restaurantName": ' ' + foodData,
+                                    "restaurantZip": zipData,
+                                    "publicSort": sortData
+                                }
+                    
+                                console.log('searchPayload: ', badPayloadName)
+                    
+                                return chai.request(app)
+                                    .post('/userSite/search/')
+                                    .send(badPayloadName)
+                            })
+                            .then(function (res) {
+        
+                                let parsedError = JSON.parse(res.error.text)
+                                console.log('parsedError: ', parsedError)
+                                expect(res).to.be.a('object');
+                                expect(res).to.have.status(422);
+                                expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message')
+                                expect(parsedError.reason).to.have.string('ERROR');
+                                expect(parsedError.location).to.have.string('restaurantName');
+                                expect(parsedError.message).to.have.string('Field cannot contain whitespace!');
+            
+                                })
+                                .then(function() {
+                                    const badPayloadSort = {
+                                        "restaurantName": foodData,
+                                        "restaurantZip": zipData,
+                                        "publicSort": ' ' + sortData + ' '
+                                    }
+                        
+                                    console.log('searchPayload: ', badPayloadSort)
+                        
+                                    return chai.request(app)
+                                        .post('/userSite/search/')
+                                        .send(badPayloadSort)
+                                })
+                                .then(function (res) {
+            
+                                    let parsedError = JSON.parse(res.error.text)
+                                    console.log('parsedError: ', parsedError)
+                                    expect(res).to.be.a('object');
+                                    expect(res).to.have.status(422);
+                                    expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message')
+                                    expect(parsedError.reason).to.have.string('ERROR');
+                                    expect(parsedError.location).to.have.string('publicSort');
+                                    expect(parsedError.message).to.have.string('Field cannot contain whitespace!');
+                
+                                    })
+                        })
+                        
+                        
 
-            const userTokenId = userData._id;
+        it('REQUEST USER FAVS BY USERTOKEN - USER HAS NO FAVS', function () {
+
+            const emptyUserData = generateData();
+
+            populateEmptyUser(emptyUserData)
+
+            console.log('emptyUserInfo: ', emptyUserData)
 
             return chai.request(app)
-                .get(`/userSite/user/${userTokenId}`)
+                .get(`/userSite/user/${emptyUserData._id}`)
                 .set('Authorization', `Bearer ${testToken}`)
                 .then(function (res) {
+                    console.log('res.body: ', res.body)
 
-                    expect(res).to.have.status(200);
+                    expect(res).to.have.status(206);
                     expect(res).to.be.a('object');
-                    expect(res.body.userFavs[0]).to.have.all.keys('id', 'userRef', 'restaurantName', 'restaurantAlias', 'restaurantYelpId')
-                    expect(res.body.userFavs[0].id).to.have.lengthOf.at.least(1);
-                    expect(res.body.userFavs[0].id).to.be.a('string');
-                    expect(res.body.userFavs[0].userRef).to.have.lengthOf.at.least(1);
-                    expect(res.body.userFavs[0].userRef).to.be.a('string');
-                    expect(res.body.userFavs[0].restaurantName).to.have.lengthOf.at.least(1);
-                    expect(res.body.userFavs[0].restaurantName).to.be.a('string');
-                    expect(res.body.userFavs[0].restaurantAlias).to.have.lengthOf.at.least(1);
-                    expect(res.body.userFavs[0].restaurantAlias).to.be.a('string');
-                    expect(res.body.userFavs[0].restaurantYelpId).to.have.lengthOf.at.least(1);
-                    expect(res.body.userFavs[0].restaurantYelpId).to.be.a('string');
-                    console.log('res.body.userFavs[0]: ', res.body.userFavs[0])
-                 })
+                    expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(res.body.reason).to.equal('NO FAVORITES')
+                    expect(res.body.location).to.equal(`${emptyUserData._id}`)
+                    expect(res.body.message).to.equal(`Favorites not found for ${emptyUserData._id}`)
+      
+                })
 
         })
 
 
         it('DELETE A USER FAVORITE AND VERIFY DELETE', function () {
 
-            const favID = favData._id;
+            const badFavID = require('mongoose').Types.ObjectId();
+            ;
 
             return chai.request(app)
-                .delete(`/userSite/favs/${favID}`)
+                .delete(`/userSite/favs/${badFavID}`)
                 .set('Authorization', `Bearer ${testToken}`)
                 .set('Content-Type', 'application/json')
-                .send(favID)
+                .send(badFavID)
                 .then(function (res) {
 
-                    expect(res).to.have.status(200);
+                    expect(res).to.have.status(410);
                     expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
-                    expect(res.body.reason).to.have.string('SUCCESS');
-                    expect(res.body.message).to.have.string(`${favData._id} record has been removed`);
-                  console.log('res.body: ', res.body)
-                }).then(function () {
-
-                    return chai.request(app)
-                        .get(`/userSite/favs/${favID}`)
-                        .set('Authorization', `Bearer ${testToken}`)
-                        .set('Content-Type', 'application/json')
-                        .then(function (res) {
-
-                           expect(res).to.have.status(410);
-                           expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
-                           expect(res.body.reason).to.have.string('ERROR');
-                           expect(res.body.message).to.have.string(`${favData._id} does not exist`);
-                          console.log('res.body: ', res.body)
-
-                        })
+                    expect(res.body.reason).to.have.string('ERROR');
+                    expect(res.body.location).to.have.string(`${badFavID}`);
+                    expect(res.body.message).to.have.string(`${badFavID} does not exist`);
+                    console.log('res.body: ', res.body)
                 })
-
         })
 
 
-        it('EDIT A USER FAV', function () {
+        it('EDIT A USER FAV - MISSING ID OR ID AND REQ.BODY DO NOT MATCH', function () {
 
             const favID = favData._id;
 
-            let newVal = {
-                id: favData._id,
-                resturantName: faker.company.companyName(),
+            //"id": favID,
+            const badFavIdPayload = {
+                "restaurantName": faker.company.companyName()
+            }
 
-            };
-
-            return chai.request(app)
+             return chai.request(app)
                 .patch(`/userSite/favs/${favID}`)
                 .set('Authorization', `Bearer ${testToken}`)
                 .set('Content-Type', 'application/json')
-                .send(newVal)
+                .send(badFavIdPayload)
                 .then(function (res) {
 
-                    expect(res).to.have.status(200);
-                    expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message');
-                    expect(res.body.reason).to.have.string('SUCCESS');
-                    expect(res.body.message).to.have.string('User favorite has been updated');
+                    let parsedError = JSON.parse(res.error.text)
+                    console.log('parsedError: ', parsedError)
+                    expect(res).to.have.status(422);
+                    expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message');
+                    expect(parsedError.reason).to.have.string('ERROR');
+                    expect(parsedError.location).to.have.string('id');
+                    expect(parsedError.message).to.have.string('id field is not present');
 
                 }).then(function () {
 
+                    const badFavIdMatchPayload = {
+                        "id": favID + 12345,
+                        "restaurantName": faker.company.companyName()
+                    }
                     return chai.request(app)
-                        .get(`/userSite/favs/${favID}`)
-                        .set('Authorization', `Bearer ${testToken}`)
+                    .patch(`/userSite/favs/${favID}`)
+                    .set('Authorization', `Bearer ${testToken}`)
+                    .set('Content-Type', 'application/json')
+                    .send(badFavIdMatchPayload)
                         .then(function (res) {
 
-                            expect(res).to.have.status(200);
-                            expect(res).to.be.a('object');
-                            expect(res.body).to.have.all.keys('id', 'userRef', 'restaurantName', 'restaurantAlias', 'restaurantYelpId')
-                            expect(res.body.id).to.have.lengthOf.at.least(1);
-                            expect(res.body.id).to.be.a('string');
-                            expect(res.body.userRef).to.have.lengthOf.at.least(1);
-                            expect(res.body.userRef).to.be.a('string');
-                            expect(res.body.restaurantName).to.have.lengthOf.at.least(1);
-                            expect(res.body.restaurantName).to.be.a('string');
-                            expect(res.body.restaurantAlias).to.have.lengthOf.at.least(1);
-                            expect(res.body.restaurantAlias).to.be.a('string');
-                            expect(res.body.restaurantYelpId).to.have.lengthOf.at.least(1);
-                            expect(res.body.restaurantYelpId).to.be.a('string');
-                            console.log('res.body.userFavs[0]: ', res.body)
-                         })
+                    let parsedError = JSON.parse(res.error.text)
+                    console.log('parsedError: ', parsedError)
+                    expect(res).to.have.status(422);
+                    expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message');
+                    expect(parsedError.reason).to.have.string('ERROR');
+                    expect(parsedError.location).to.have.string('req.params.id or req.body.id');
+                    expect(parsedError.message).to.have.string('req.params.id and req.body.id must match');
+                        })
                 })
 
         });
-        
+
     })// END FAVS TEST BLOCK
 
 
     //TEST RESOURCES END
 });
-
-*/

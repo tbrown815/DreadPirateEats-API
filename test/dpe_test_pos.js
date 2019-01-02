@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 
 const expect = chai.expect;
 
-const {userDataModel, userFavsModel} = require('../models')
+const { userDataModel, userFavsModel } = require('../models')
 
 const { app, startServer, stopServer } = require('../server');
 
@@ -29,62 +29,62 @@ let testToken;
 
 let testLoginUserData = [
     {
-        "username" : "ricksanchez",
-        "password" : "$2a$10$lSCYj7sGs/8IxFvH2KHY5ecVgreWXpi6OEvhOK7UqqyCKGMK95i1y",
-        "email" : "test@test.com"
+        "username": "ricksanchez",
+        "password": "$2a$10$lSCYj7sGs/8IxFvH2KHY5ecVgreWXpi6OEvhOK7UqqyCKGMK95i1y",
+        "email": "test@test.com"
     }
 ]
 
 let testRestaurantData = [
     {
-        "restaurantName" : "Best Bison",
-        "restaurantYelpId" : "XY2gaLVR4UPHb9n0qP_TqA",
-        "restaurantAlias" : "best-bison-omaha-3"
+        "restaurantName": "Best Bison",
+        "restaurantYelpId": "XY2gaLVR4UPHb9n0qP_TqA",
+        "restaurantAlias": "best-bison-omaha-3"
     },
     {
-        "restaurantName" : "Chucks Restaurant",
-        "restaurantYelpId" : "VXDUsmrsjYAT8FTGQ0gfwg",
-        "restaurantAlias" : "chucks-restaurant-des-moines"
+        "restaurantName": "Chucks Restaurant",
+        "restaurantYelpId": "VXDUsmrsjYAT8FTGQ0gfwg",
+        "restaurantAlias": "chucks-restaurant-des-moines"
     },
     {
-        "restaurantName" : "Cooper's On 5th",
-        "restaurantYelpId" : "gbd0C2IfDBsk_Z-R9NcVDw",
-        "restaurantAlias" : "coopers-on-5th-west-des-moines"
+        "restaurantName": "Cooper's On 5th",
+        "restaurantYelpId": "gbd0C2IfDBsk_Z-R9NcVDw",
+        "restaurantAlias": "coopers-on-5th-west-des-moines"
     },
     {
-        "restaurantName" : "HuHot Mongolian Grill",
-        "restaurantYelpId" : "GPVDUx06qpXrJ-zTgv_VPw",
-        "restaurantAlias" : "huhot-mongolian-grill-west-des-moines"
+        "restaurantName": "HuHot Mongolian Grill",
+        "restaurantYelpId": "GPVDUx06qpXrJ-zTgv_VPw",
+        "restaurantAlias": "huhot-mongolian-grill-west-des-moines"
     },
     {
-        "restaurantName" : "Sam & Gabes",
-        "restaurantYelpId" : "Xj8ve8_47C_1SDVN1cKIsg",
-        "restaurantAlias" : "sam-and-gabes-urbandale"
+        "restaurantName": "Sam & Gabes",
+        "restaurantYelpId": "Xj8ve8_47C_1SDVN1cKIsg",
+        "restaurantAlias": "sam-and-gabes-urbandale"
     },
     {
-        "restaurantName" : "Tasty Tacos",
-        "restaurantYelpId" : "LzaLzKOa2MLraVxztxmy-A",
-        "restaurantAlias" : "tasty-tacos-urbandale"
+        "restaurantName": "Tasty Tacos",
+        "restaurantYelpId": "LzaLzKOa2MLraVxztxmy-A",
+        "restaurantAlias": "tasty-tacos-urbandale"
     },
     {
-        "restaurantName" : "California Tacos & More",
-        "restaurantYelpId" : "FyC4FzmUwHSK5pFS1EhP1g",
-        "restaurantAlias" : "california-tacos-and-more-omaha"
+        "restaurantName": "California Tacos & More",
+        "restaurantYelpId": "FyC4FzmUwHSK5pFS1EhP1g",
+        "restaurantAlias": "california-tacos-and-more-omaha"
     },
     {
-        "restaurantName" : "Dinosaur Bar-B-Que",
-        "restaurantYelpId" : "rg941Qb9wA7_AM_TwO9OAg",
-        "restaurantAlias" : "dinosaur-bar-b-que-stamford"
+        "restaurantName": "Dinosaur Bar-B-Que",
+        "restaurantYelpId": "rg941Qb9wA7_AM_TwO9OAg",
+        "restaurantAlias": "dinosaur-bar-b-que-stamford"
     },
     {
-        "restaurantName" : "Caribbean Restaurant",
-        "restaurantYelpId" : "hXlJOg894rFKIgWhaCWwfw",
-        "restaurantAlias" : "caribbean-restaurant-rome"
+        "restaurantName": "Caribbean Restaurant",
+        "restaurantYelpId": "hXlJOg894rFKIgWhaCWwfw",
+        "restaurantAlias": "caribbean-restaurant-rome"
     },
     {
-        "restaurantName" : "The Flying Elk",
-        "restaurantYelpId" : "VZUrYnDCTroPt7TQ_0mA2A",
-        "restaurantAlias" : "the-flying-elk-stockholm"
+        "restaurantName": "The Flying Elk",
+        "restaurantYelpId": "VZUrYnDCTroPt7TQ_0mA2A",
+        "restaurantAlias": "the-flying-elk-stockholm"
     }
 ]
 
@@ -119,7 +119,7 @@ function loadLoginData(testLoginUserData) {
         username: testLoginUserData.username,
         password: testLoginUserData.password,
         email: testLoginUserData.email
-        }
+    }
 };
 
 
@@ -146,21 +146,21 @@ function generateData() {
         username: faker.internet.userName(),
         password: faker.internet.password(),
         email: faker.internet.email()
-        }
+    }
 };
 
 //Create test data for Favs Collection
 function populateTestFavData() {
     console.info('test favorite data is being created');
     const testfavData = [];
-    
+
     for (let i = 0; i < 10; i++) {
         testfavData.push(genUserFavs(testRestaurantData[i]));
 
         favData = testfavData[0];
 
         return userFavsModel.insertMany(testfavData);
-        
+
     }
 };
 
@@ -240,7 +240,7 @@ describe('Test Resources', function () {
     afterEach(function () {
         return resetDB();
     });
-    
+
     after(function () {
         return stopServer();
     });
@@ -282,74 +282,74 @@ describe('Test Resources', function () {
         })
     });
 
-        describe('CREATE USER TEST SET', function () {
+    describe('CREATE USER TEST SET', function () {
 
-            it('POST CALL TO CREATE NEW USER', function () {
+        it('POST CALL TO CREATE NEW USER', function () {
 
-                const genData = generateData();
+            const genData = generateData();
 
-                console.log('genData: ', genData)
+            console.log('genData: ', genData)
 
-                return chai.request(app)
-                
+            return chai.request(app)
+
                 .post('/userAccess/new/')
 
-                    .send(genData)
+                .send(genData)
 
-                    .then(function (res) {
-                        expect(res).to.have.status(201);
-                        expect(res).to.be.json;
-                        expect(res).to.be.a('object');
-                        expect(res.body).to.have.all.keys('authToken')
-                        expect(res.body.authToken).to.have.lengthOf.at.least(1);
-                        expect(res.body.authToken).to.be.a('string');
+                .then(function (res) {
+                    expect(res).to.have.status(201);
+                    expect(res).to.be.json;
+                    expect(res).to.be.a('object');
+                    expect(res.body).to.have.all.keys('authToken')
+                    expect(res.body.authToken).to.have.lengthOf.at.least(1);
+                    expect(res.body.authToken).to.be.a('string');
 
-                        console.info('authToken: ', res.text)
+                    console.info('authToken: ', res.text)
 
-                        let userName = genData.username
-                        return userName
- 
-                    })
-                    .then(function (userName) {
-                        return chai.request(app)
+                    let userName = genData.username
+                    return userName
+
+                })
+                .then(function (userName) {
+                    return chai.request(app)
                         .get(`/userAccess/gettoken/${userName}`)
-                        
-                    })                        
-                    .then(function (res) {
-                        expect(res.body.id).to.be.a('string');
-                        expect(res.body.id).to.have.lengthOf.at.least(1);
 
-                        let userTokenId =  res.body.id
+                })
+                .then(function (res) {
+                    expect(res.body.id).to.be.a('string');
+                    expect(res.body.id).to.have.lengthOf.at.least(1);
 
-                        return userTokenId
+                    let userTokenId = res.body.id
 
-                    })
-                    .then(function (userTokenId) {
+                    return userTokenId
 
-                        console.log('userTokenId: ', userTokenId)
+                })
+                .then(function (userTokenId) {
 
-                        return chai.request(app) 
+                    console.log('userTokenId: ', userTokenId)
+
+                    return chai.request(app)
 
                         .get(`/userAccess/${userTokenId}`)
-                  
-                    })
-                    .then(function (res) {
-                        expect(res.body.id).to.be.a('string');
-                        expect(res.body.username).to.equal(genData.username);
-                        expect(res.body.username).to.be.a('string');
-                        expect(res.body.email).to.equal(genData.email);
-                        expect(res.body.email).to.have.lengthOf.at.least(1);
-                        expect(res.body.email).to.be.a('string');
-                        expect(res.body.email).to.have.string('@');
-                        expect(res.body.email).to.have.string('.');
-                        console.info('res: ', res.body)
 
-                    })
-            })
+                })
+                .then(function (res) {
+                    expect(res.body.id).to.be.a('string');
+                    expect(res.body.username).to.equal(genData.username);
+                    expect(res.body.username).to.be.a('string');
+                    expect(res.body.email).to.equal(genData.email);
+                    expect(res.body.email).to.have.lengthOf.at.least(1);
+                    expect(res.body.email).to.be.a('string');
+                    expect(res.body.email).to.have.string('@');
+                    expect(res.body.email).to.have.string('.');
+                    console.info('res: ', res.body)
+
+                })
+        })
 
 
 
-        });//USERS TEST BLOCK END
+    });//USERS TEST BLOCK END
 
 
     // FAVS TEST BLOCK
@@ -366,7 +366,7 @@ describe('Test Resources', function () {
             const foodData = testFoodData[foodDataRandom]
             const sortData = testSortData[sortDataRandom]
             const zipData = testZipCodes[zipDataRandom];
-            
+
             const searchPayload = {
                 "restaurantZip": zipData,
                 "restaurantName": foodData,
@@ -399,32 +399,32 @@ describe('Test Resources', function () {
                     console.log('newFavData: ', newFavData)
 
                     return chai.request(app)
-                    .post('/userSite/favs/')
-                    .set('Authorization', `Bearer ${testToken}`)
-                    .set('Content-Type', 'application/json')
-                    .send(newFavData)
-                    .then(function(res) {
-                        console.log('Create New res.body: ', res.body)
+                        .post('/userSite/favs/')
+                        .set('Authorization', `Bearer ${testToken}`)
+                        .set('Content-Type', 'application/json')
+                        .send(newFavData)
+                        .then(function (res) {
+                            console.log('Create New res.body: ', res.body)
 
-                        expect(res).to.have.status(201);
-                        expect(res).to.be.a('object');
-                        expect(res.body).to.not.be.null;
-                        expect(res.body.id).to.be.a('string');
-                        expect(res.body.id).to.have.lengthOf.at.least(1);
-                        expect(res.body.userRef).to.be.a('string');
-                        expect(res.body.userRef).to.have.lengthOf.at.least(1);
-                        expect(res.body.restaurantName).to.equal(newFavData.restaurantName)
-                        expect(res.body.restaurantName).to.be.a('string');
-                        expect(res.body.restaurantName).to.have.lengthOf.at.least(1);
-                        expect(res.body.restaurantAlias).to.equal(newFavData.restaurantAlias)
-                        expect(res.body.restaurantAlias).to.be.a('string');
-                        expect(res.body.restaurantAlias).to.have.lengthOf.at.least(1);
-                        expect(res.body.restaurantYelpId).to.equal(newFavData.restaurantYelpId)
-                        expect(res.body.restaurantYelpId).to.be.a('string');
-                        expect(res.body.restaurantYelpId).to.have.lengthOf.at.least(1);
+                            expect(res).to.have.status(201);
+                            expect(res).to.be.a('object');
+                            expect(res.body).to.not.be.null;
+                            expect(res.body.id).to.be.a('string');
+                            expect(res.body.id).to.have.lengthOf.at.least(1);
+                            expect(res.body.userRef).to.be.a('string');
+                            expect(res.body.userRef).to.have.lengthOf.at.least(1);
+                            expect(res.body.restaurantName).to.equal(newFavData.restaurantName)
+                            expect(res.body.restaurantName).to.be.a('string');
+                            expect(res.body.restaurantName).to.have.lengthOf.at.least(1);
+                            expect(res.body.restaurantAlias).to.equal(newFavData.restaurantAlias)
+                            expect(res.body.restaurantAlias).to.be.a('string');
+                            expect(res.body.restaurantAlias).to.have.lengthOf.at.least(1);
+                            expect(res.body.restaurantYelpId).to.equal(newFavData.restaurantYelpId)
+                            expect(res.body.restaurantYelpId).to.be.a('string');
+                            expect(res.body.restaurantYelpId).to.have.lengthOf.at.least(1);
 
 
-                    })
+                        })
 
                 })
         })
@@ -452,7 +452,7 @@ describe('Test Resources', function () {
                     expect(res.body.userFavs[0].restaurantYelpId).to.have.lengthOf.at.least(1);
                     expect(res.body.userFavs[0].restaurantYelpId).to.be.a('string');
                     console.log('res.body.userFavs[0]: ', res.body.userFavs[0])
-                 })
+                })
 
         })
 
@@ -471,8 +471,9 @@ describe('Test Resources', function () {
                     expect(res).to.have.status(200);
                     expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
                     expect(res.body.reason).to.have.string('SUCCESS');
+                    expect(res.body.location).to.have.string(`${favData._id}`);
                     expect(res.body.message).to.have.string(`${favData._id} record has been removed`);
-                  console.log('res.body: ', res.body)
+                    console.log('res.body: ', res.body)
                 }).then(function () {
 
                     return chai.request(app)
@@ -481,11 +482,12 @@ describe('Test Resources', function () {
                         .set('Content-Type', 'application/json')
                         .then(function (res) {
 
-                           expect(res).to.have.status(410);
-                           expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
-                           expect(res.body.reason).to.have.string('ERROR');
-                           expect(res.body.message).to.have.string(`${favData._id} does not exist`);
-                          console.log('res.body: ', res.body)
+                            expect(res).to.have.status(410);
+                            expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message')
+                            expect(res.body.reason).to.have.string('ERROR');
+                            expect(res.body.location).to.have.string(`${favData._id}`);
+                            expect(res.body.message).to.have.string(`${favData._id} does not exist`);
+                            console.log('res.body: ', res.body)
 
                         })
                 })
@@ -509,10 +511,11 @@ describe('Test Resources', function () {
                 .set('Content-Type', 'application/json')
                 .send(newVal)
                 .then(function (res) {
-
+                    console.log('res.body: ', res.body)
                     expect(res).to.have.status(200);
                     expect(res.body).to.have.all.keys('code', 'reason', 'location', 'message');
                     expect(res.body.reason).to.have.string('SUCCESS');
+                    expect(res.body.location).to.have.string('User Favorite');
                     expect(res.body.message).to.have.string('User favorite has been updated');
 
                 }).then(function () {
@@ -536,11 +539,11 @@ describe('Test Resources', function () {
                             expect(res.body.restaurantYelpId).to.have.lengthOf.at.least(1);
                             expect(res.body.restaurantYelpId).to.be.a('string');
                             console.log('res.body.userFavs[0]: ', res.body)
-                         })
+                        })
                 })
 
         });
-        
+
     })// END FAVS TEST BLOCK
 
 

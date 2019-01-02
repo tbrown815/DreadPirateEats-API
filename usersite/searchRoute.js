@@ -77,6 +77,33 @@ function yelpDetailApi(params) {
 /*ENDPOINT FOR GENERAL SEARCH USING NAME AND ZIP*/
 router.post('/search', jsonParser, (req, res) => {
 
+
+    const requiredFields = ['restaurantZip', 'restaurantName', 'publicSort']
+
+    const missingField = requiredFields.find(field => !(field in req.body))
+
+    if (missingField) {
+        return res.status(422).json({
+            code: 422,
+            reason: 'ERROR',
+            message: 'Field is missing',
+            location: missingField
+        }).end();
+    }
+
+    const trimFields = ['restaurantZip', 'restaurantName', 'publicSort'];
+    const untrimmbedField = trimFields.find(field => req.body[field].trim() !== req.body[field]);
+
+    if (untrimmbedField) {
+        return res.status(422).json({
+            code: 422,
+            reason: 'ERROR',
+            message: 'Field cannot contain whitespace!',
+            location: `${untrimmbedField}`
+        }).end();
+    }
+
+
     let location = req.body.restaurantZip
     let term = req.body.restaurantName
     let sort_by = req.body.publicSort

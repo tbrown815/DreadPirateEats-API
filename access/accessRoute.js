@@ -85,13 +85,13 @@ router.post('/new/', jsonParser, (req, res) => {
         req.body[field].trim() !== req.body[field])
 
     if(untrimmbedField) {
-        const errMessage = `${untrimmbedField} cannot start or end with whitespace!`
+        const errMessage = `${untrimmbedField} cannot contain whitespace!`
         console.error(errMessage)
         return res.status(422).json({
             code: 422,
             reason: 'ERROR',
             location: untrimmbedField,
-            message: 'cannot start or end with whitespace.'
+            message: 'cannot contain whitespace.'
         }).end();
     };
 
