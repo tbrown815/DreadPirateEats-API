@@ -91,19 +91,6 @@ router.post('/search', jsonParser, (req, res) => {
         }).end();
     }
 
-    const trimFields = ['restaurantZip', 'restaurantName', 'publicSort'];
-    const untrimmbedField = trimFields.find(field => req.body[field].trim() !== req.body[field]);
-
-    if (untrimmbedField) {
-        return res.status(422).json({
-            code: 422,
-            reason: 'ERROR',
-            message: 'Field cannot contain whitespace!',
-            location: `${untrimmbedField}`
-        }).end();
-    }
-
-
     let location = req.body.restaurantZip
     let term = req.body.restaurantName
     let sort_by = req.body.publicSort
