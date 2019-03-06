@@ -23,7 +23,7 @@ The application is a basic game that helps users choose a place to eat.  They ca
     ![Alt](./readme_img/newUser.png "Signup Page screenshot")
 
     *   By clicking [About] or the  'Not sure how to play?' button the user can learn how the game is played and some history behind it's creation.
-    ![Alt](./readme_img/origDPE.png "Signup Page screenshot")
+    ![Alt](./readme_img/about.png "Signup Page screenshot")
 
 
 
