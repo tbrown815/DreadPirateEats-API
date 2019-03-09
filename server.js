@@ -1,6 +1,6 @@
 'use strict';
 
-require ('dotenv').config();
+require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -8,21 +8,21 @@ const morgan = require('morgan');
 const passport = require('passport');
 const cors = require('cors')
 
-/* MODELS */
-const {userDataModel, userFavsModel} = require('./models');
+/* MODELS - for later use */ 
+//const { userDataModel, userFavsModel } = require('./models');
 
 mongoose.Promise = global.Promise;
 
-const {PORT, DATABASE_URL, CLIENT_ORIGIN} = require('./config');
+const { PORT, DATABASE_URL, CLIENT_ORIGIN } = require('./config');
 
 const app = express();
 
-app.use(cors({origin: CLIENT_ORIGIN}))
+app.use(cors({ origin: CLIENT_ORIGIN }))
 
 app.use(morgan('dev'))
 
 /* ROUTERS */
-const {router: authRoute, localStrategy, jwtStrategy} = require('./auth');
+const { router: authRoute, localStrategy, jwtStrategy } = require('./auth');
 const accessRoute = require('./access/accessRoute');
 const userRoute = require('./usersite/userRoute');
 const searchRoute = require('./usersite/searchRoute');
@@ -52,12 +52,12 @@ app.use(function (req, res, next) {
 
 app.use(express.static('public'));
 
-//BASIC EP TO TEST SERVER START/STOP
-app.get('/test', (req, res) => res.json({testing: '1-2-3'}))
+//BASIC EP TO TEST SERVER START/STOP - for testing only
+//app.get('/test', (req, res) => res.json({ testing: '1-2-3' }))
 
 
 /* SERVER CATCH-ALL */
-app.use('*', function(req, res) {
+app.use('*', function (req, res) {
     res.status(404).json('Please use valid endpoint')
 })
 
@@ -69,8 +69,8 @@ let server;
 function startServer(databaseUrl, port = PORT) {
     return new Promise((resolve, reject) => {
 
-        mongoose.connect(databaseUrl,{ useNewUrlParser: true }, err => {
-            if(err) {
+        mongoose.connect(databaseUrl, { useNewUrlParser: true }, err => {
+            if (err) {
                 return reject(err)
             }
 
@@ -78,10 +78,10 @@ function startServer(databaseUrl, port = PORT) {
                 console.log(`The server is listening on port ${port}`)
                 resolve();
             })
-            .on('error', err => {
-                mongoose.disconnect()
-                reject(err)
-            })
+                .on('error', err => {
+                    mongoose.disconnect()
+                    reject(err)
+                })
         })
     })
 
@@ -90,25 +90,25 @@ function startServer(databaseUrl, port = PORT) {
 //SERVER STOP
 function stopServer() {
     return mongoose.disconnect()
-    .then(() => {
-        return new Promise((resolve, reject) => {
-            console.log('The server is being stopped')
+        .then(() => {
+            return new Promise((resolve, reject) => {
+                console.log('The server is being stopped')
 
-            server.close(err => {
-                if(err) {
-                    return reject(err)
-                }
+                server.close(err => {
+                    if (err) {
+                        return reject(err)
+                    }
 
-                resolve()
+                    resolve()
+                })
             })
         })
-    })
 };
 
-if(require.main === module) {
+if (require.main === module) {
     startServer(DATABASE_URL).catch(err => {
         console.error(err)
     })
 }
 
-module.exports = {app, startServer, stopServer}
+module.exports = { app, startServer, stopServer }

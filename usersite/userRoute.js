@@ -26,7 +26,7 @@ router.get('/user/:id', jwtAuth, (req, res) => {
                     })
             }
 
-            userFavsModel.find({ userRef: req.params.id }).sort({'restaurantName': 1})
+            userFavsModel.find({ userRef: req.params.id }).sort({ 'restaurantName': 1 })
 
                 .then(userFavs => {
                     res.json({

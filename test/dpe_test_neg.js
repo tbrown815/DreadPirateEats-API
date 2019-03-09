@@ -615,56 +615,56 @@ describe('Test Resources', function () {
                     expect(parsedError.location).to.have.string('restaurantZip');
                     expect(parsedError.message).to.have.string('Field is missing');
 
-                    })
-                    .then(function() {
-                        const badPayloadName = {
+                })
+                .then(function () {
+                    const badPayloadName = {
                         "restaurantZip": zipData,
                         "publicSort": sortData
-                        }
-            
-                        console.log('searchPayload: ', badPayloadName)
-            
-                        return chai.request(app)
-                            .post('/userSite/search/')
-                            .send(badPayloadName)
-                    })
-                    .then(function (res) {
+                    }
 
-                        let parsedError = JSON.parse(res.error.text)
-                        console.log('parsedError: ', parsedError)
-                        expect(res).to.be.a('object');
-                        expect(res).to.have.status(422);
-                        expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message')
-                        expect(parsedError.reason).to.have.string('ERROR');
-                        expect(parsedError.location).to.have.string('restaurantName');
-                        expect(parsedError.message).to.have.string('Field is missing');
-    
-                        })
-                        .then(function() {
-                            const badPayloadSort = {
-                            "restaurantZip": zipData,
-                            "restaurantName": foodData
-                            }
-                
-                            console.log('searchPayload: ', badPayloadSort)
-                
-                            return chai.request(app)
-                                .post('/userSite/search/')
-                                .send(badPayloadSort)
-                        })
-                        .then(function (res) {
-    
-                            let parsedError = JSON.parse(res.error.text)
-                            console.log('parsedError: ', parsedError)
-                            expect(res).to.be.a('object');
-                            expect(res).to.have.status(422);
-                            expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message')
-                            expect(parsedError.reason).to.have.string('ERROR');
-                            expect(parsedError.location).to.have.string('publicSort');
-                            expect(parsedError.message).to.have.string('Field is missing');
-        
-                            })
+                    console.log('searchPayload: ', badPayloadName)
+
+                    return chai.request(app)
+                        .post('/userSite/search/')
+                        .send(badPayloadName)
                 })
+                .then(function (res) {
+
+                    let parsedError = JSON.parse(res.error.text)
+                    console.log('parsedError: ', parsedError)
+                    expect(res).to.be.a('object');
+                    expect(res).to.have.status(422);
+                    expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(parsedError.reason).to.have.string('ERROR');
+                    expect(parsedError.location).to.have.string('restaurantName');
+                    expect(parsedError.message).to.have.string('Field is missing');
+
+                })
+                .then(function () {
+                    const badPayloadSort = {
+                        "restaurantZip": zipData,
+                        "restaurantName": foodData
+                    }
+
+                    console.log('searchPayload: ', badPayloadSort)
+
+                    return chai.request(app)
+                        .post('/userSite/search/')
+                        .send(badPayloadSort)
+                })
+                .then(function (res) {
+
+                    let parsedError = JSON.parse(res.error.text)
+                    console.log('parsedError: ', parsedError)
+                    expect(res).to.be.a('object');
+                    expect(res).to.have.status(422);
+                    expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message')
+                    expect(parsedError.reason).to.have.string('ERROR');
+                    expect(parsedError.location).to.have.string('publicSort');
+                    expect(parsedError.message).to.have.string('Field is missing');
+
+                })
+        })
 
         it('REQUEST USER FAVS BY USERTOKEN - USER HAS NO FAVS', function () {
 
@@ -686,7 +686,7 @@ describe('Test Resources', function () {
                     expect(res.body.reason).to.equal('NO FAVORITES')
                     expect(res.body.location).to.equal(`${emptyUserData._id}`)
                     expect(res.body.message).to.equal(`Favorites not found for ${emptyUserData._id}`)
-      
+
                 })
 
         })
@@ -723,7 +723,7 @@ describe('Test Resources', function () {
                 "restaurantName": faker.company.companyName()
             }
 
-             return chai.request(app)
+            return chai.request(app)
                 .patch(`/userSite/favs/${favID}`)
                 .set('Authorization', `Bearer ${testToken}`)
                 .set('Content-Type', 'application/json')
@@ -745,19 +745,19 @@ describe('Test Resources', function () {
                         "restaurantName": faker.company.companyName()
                     }
                     return chai.request(app)
-                    .patch(`/userSite/favs/${favID}`)
-                    .set('Authorization', `Bearer ${testToken}`)
-                    .set('Content-Type', 'application/json')
-                    .send(badFavIdMatchPayload)
+                        .patch(`/userSite/favs/${favID}`)
+                        .set('Authorization', `Bearer ${testToken}`)
+                        .set('Content-Type', 'application/json')
+                        .send(badFavIdMatchPayload)
                         .then(function (res) {
 
-                    let parsedError = JSON.parse(res.error.text)
-                    console.log('parsedError: ', parsedError)
-                    expect(res).to.have.status(422);
-                    expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message');
-                    expect(parsedError.reason).to.have.string('ERROR');
-                    expect(parsedError.location).to.have.string('req.params.id or req.body.id');
-                    expect(parsedError.message).to.have.string('req.params.id and req.body.id must match');
+                            let parsedError = JSON.parse(res.error.text)
+                            console.log('parsedError: ', parsedError)
+                            expect(res).to.have.status(422);
+                            expect(parsedError).to.have.all.keys('code', 'reason', 'location', 'message');
+                            expect(parsedError.reason).to.have.string('ERROR');
+                            expect(parsedError.location).to.have.string('req.params.id or req.body.id');
+                            expect(parsedError.message).to.have.string('req.params.id and req.body.id must match');
                         })
                 })
 

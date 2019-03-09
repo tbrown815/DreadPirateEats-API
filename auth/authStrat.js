@@ -1,19 +1,19 @@
 'use-strict';
 
-const {Strategy: LocalStrategy} = require('passport-local');
-const {Strategy: JwtStrategy, ExtractJwt} = require('passport-jwt');
-const {userDataModel} = require('../models');
-const {JWT_SECRET} = require('../config');
+const { Strategy: LocalStrategy } = require('passport-local');
+const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
+const { userDataModel } = require('../models');
+const { JWT_SECRET } = require('../config');
 
 const localStrategy = new LocalStrategy((username, password, callback) => {
-  
+
     let user;
 
     /* VERIFY USER EXISTS */
-    userDataModel.findOne({username: username})
+    userDataModel.findOne({ username: username })
         .then(_user => {
             user = _user;
-            if(!user) {
+            if (!user) {
                 return Promise.reject({
                     code: 401,
                     reason: 'ERROR',
@@ -25,7 +25,7 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
 
         /* VALIDATE PASSWORD ENTERED BY USER */
         .then(isValid => {
-            if(!isValid) {
+            if (!isValid) {
                 return Promise.reject({
                     code: 401,
                     reason: 'ERROR',
@@ -41,19 +41,19 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
             return callback(err, false);
         });
 
-// close the ELSE    }
+    // close the ELSE    }
 }); //localStrategy End
 
 /* EXTRACT JWT FROM REQ HEADER */
 const jwtStrategy = new JwtStrategy(
     {
-    secretOrKey: JWT_SECRET,
-    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
-    algorithms: ['HS256']
+        secretOrKey: JWT_SECRET,
+        jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
+        algorithms: ['HS256']
     },
     (payload, done) => {
         done(null, payload.user);
     }
 );
 
-module.exports = {localStrategy, jwtStrategy};
+module.exports = { localStrategy, jwtStrategy };
