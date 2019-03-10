@@ -34,7 +34,7 @@ The application is a basic game that helps users choose a place to eat.  They ca
     ![Alt](./readme_img/drawPic.png "Draw Page screenshot")
 
 *   Clicking the [Favorites] link displays a list of the users favorites.  
-    *   Selecting the radio buttons allows a user to edit a favorites name or delete a favorite after clicking the 'Edit Favorite' button.  
+    *   Selecting the radio buttons allows a user to edit a favorite's name or delete a favorite after clicking the 'Edit Favorite' button.  
     ![Alt](./readme_img/favsDisplay.png "Draw Page screenshot")
 
 
@@ -43,7 +43,7 @@ The application is a basic game that helps users choose a place to eat.  They ca
 
 *   Guest play is similar to that of an account holder.  The guest provides the Zip Code they would like to search, results are temporarily saved and the user is presened with restaurant options until their number of draws has completed.
     ![Alt](./readme_img/guestZip.png "Draw Page screenshot")
-    *   Restaurants are displayed on screen and link to the cooresponding page on Yelp, where the user can get additional details and read reviews.
+    *   Restaurants are displayed on screen and link to the corresponding page on Yelp, where the user can get additional details and read reviews.
     ![Alt](./readme_img/guestDraw.png "Draw Page screenshot")
 
 
